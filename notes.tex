@@ -790,6 +790,15 @@ Let $T,U : V \to W$ be linear. Then,
 Let $T : V \to W$, $U : W \to Z$ be linear. Then $UT : V \to Z$ is linear.
 \end{theorem}
 
+\begin{sol}
+Let $T : V \to W$, $U : W \to Z$ be linear. Then, \begin{align*}
+    UT(au + v) &= U(T(au+v)) \\
+    &= U(aT(u) + T(v)) \\
+    &= aU(T(u)) + U(T(v)) \\
+    &= aUT(u) + UT(v).
+\end{align*}
+\end{sol}
+
 \begin{theorem}{2.10}
 Let $T, U_1, U_2 \in \mathcal{L}(V)$. Then 
 
@@ -805,6 +814,8 @@ Let $T, U_1, U_2 \in \mathcal{L}(V)$. Then
 Let $A$ be an $m \times n$ matrix, $B$ be an $n \times p$ matrix. We define $AB$ to be the $m \times p$ matrix such that $$(AB)_{ij} = \sum_{k = 1}^nA_{ik}B_{kj}.$$
 \end{definition}
 
+\noindent\textbf{Note:} $(AB)^t = B^tA^t.$
+
 \begin{theorem}{2.11}
 Let $T : V \to W$. $U : W \to Z$ be linear and let $\alpha, \beta, \gamma$ be ordered bases in $V, W, Z$. Then $$\begin{bmatrix} UT \end{bmatrix}_\alpha^\gamma = \begin{bmatrix} U \end{bmatrix}_\beta^\gamma\begin{bmatrix} T \end{bmatrix}_\alpha^\beta.$$
 \end{theorem}
@@ -816,6 +827,45 @@ Let $T : V \to W$. $U : W \to Z$ be linear and let $\alpha, \beta, \gamma$ be or
     \item $U(T(v_j)) = U\left( \sum_{k = 1}^n B_{kj}w_k \right) = \sum_{k = 1}^n B_{kj}U(w_k) = \sum_{k = 1}^n B_{kj} \sum_{i = 1}^p A_{ik}z_i = \sum_{i = 1}^p C_{ij}z_i$
     \item Thus, by definition, the $i,j$th entry in $\begin{bmatrix} UT \end{bmatrix}_\alpha^\gamma$ is $C_{ij} = \sum_{k = 1}^nA_{ik}B_{kj}$.
 \end{itemize}
+
+\begin{sol}
+Let $\alpha = \{v_1, \dots, v_n\}, \beta = \{w_1, \dots, w_m\}$ and $\gamma = \{z_1, \dots, z_p\}$. Let $A = \begin{bmatrix}
+U
+\end{bmatrix}_\beta^\gamma$ and $B = \begin{bmatrix}
+T
+\end{bmatrix}_\alpha^\beta$. Consider $\begin{bmatrix}
+UT
+\end{bmatrix}_\alpha^\gamma$. Then
+\begin{align*}
+    (UT)(v_j) &= U(T(v_j)) \\
+    &= U\left(\sum_{i = 1}^mB_{ij}w_i\right) \\
+    &= \sum_{i = 1}^mB_{ij}U(w_i) \\
+    &= \sum_{i = 1}^mB_{ij}\cdot \sum_{k = 1}^pA_{ki}z_k \\
+    &= \sum_{k = 1}^p\left(\sum_{i = 1}^mA_{ki}B_{ij}\right)z_k.
+\end{align*} 
+If $C = \begin{pmatrix}
+UT
+\end{pmatrix}_\alpha^\gamma$, then $$C_{kj} = \sum_{i = 1}^mA_{ki}B_{ij}.$$
+\end{sol}
+
+\noindent\textbf{Example:} Let $\alpha = \{1, x, x^2\}$ and  $\beta = \{1, x, x^2, x^3\}$ be standard bases. Let $U : P_3(\mathbb{R}) \to P_2(\mathbb{R})$ and $T : P_2(\mathbb{R}) \to P_3(\mathbb{R})$ defined by $U(f(x)) = f'(x)$ and $T(f(x)) = \int_0^xf(t)dt.$ From calculus, $UT = I$. Then
+\begin{align*}
+    \begin{bmatrix}
+UT
+\end{bmatrix}_\alpha^\alpha &= \begin{bmatrix}
+U
+\end{bmatrix}_\beta^\alpha \begin{bmatrix}
+T
+\end{bmatrix}_\alpha^\beta \\
+&= \begin{pmatrix}
+0 & 1 & 0 & 0 \\ 0 & 0 & 2 & 0\\ 0 & 0 & 0 & 3
+\end{pmatrix}\begin{pmatrix}
+0 & 0 & 0 \\ 1 & 0 & 0 \\ 0 & \frac{1}{2} & 0 \\ 0 & 0 & \frac{1}{3}
+\end{pmatrix} \\
+&= I.
+\end{align*}
+So, $U(1) = 0 = 0\cdot 1 + 0 \cdot x + 0 \cdot x^2$, $U(x)= 1 = 1 \cdot 1 + 0 \cdot x + 0 \cdot x^2$, and $U(x^2) = 2x = 0 \cdot 1 + 2 \cdot x + 0 \cdot x^2$.
+
 
 \begin{theorem}{2.12}
 Let $A$ be an $m \times n$ matrix, $B$ and $C$ be $n \times p$ matrices, $D, E$ be $q \times m$ matrices. Then 
@@ -840,6 +890,40 @@ Let $A$ be an $m \times n$ matrix, $B$ be an $n \times p$ matrix. Let $u_j, v_j$
 Let $V,W$ be finite-dimensional vector spaces with ordered bases $\beta$ and $\gamma$ and let $T : V \to W$ be linear. Then for $u \in V$ $$\begin{bmatrix} T(u) \end{bmatrix}_\gamma = \begin{bmatrix} T \end{bmatrix}_\beta^\gamma\begin{bmatrix} u \end{bmatrix}_\beta.$$
 \end{theorem}
 
+\begin{sol}
+Let $V,W$ be finite-dimensional vector spaces with ordered bases $\beta$ and $\gamma$ and let $T : V \to W$ be linear. Fix $u \in V$. Let $f : \mathbb{R} \to V$ and $g : \mathbb{R} \to W$ where $f(a) = au$ and $g(a) = aT(u)$. Let $\alpha = \{1\}$ be the standard basis for $\mathbb{R}$. Note that, $g$ and $f$ are linear transformations. Then,
+\begin{align*}
+    \begin{bmatrix}
+T(u)
+\end{bmatrix}_\gamma &= \begin{bmatrix}
+g(1)
+\end{bmatrix}_\gamma \\
+&= \begin{bmatrix}
+g
+\end{bmatrix}_\alpha^\gamma \\
+&= \begin{bmatrix}
+Tf
+\end{bmatrix}_\alpha^\gamma \\
+&= \begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma\begin{bmatrix}
+f
+\end{bmatrix}_\alpha^\beta \\
+&= \begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma \begin{bmatrix}
+f(1)
+\end{bmatrix}_\beta \\
+&= \begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma \begin{bmatrix}
+u
+\end{bmatrix}_\beta.
+\end{align*}
+\end{sol}
+
+\vspace{1em}
+
 \noindent Let $L_A : F^n \to F^m$ be given by $L_A(x) = Ax$ where $A$ is an $m \times n$ matrix.
 
 \begin{theorem}{2.15}
@@ -852,7 +936,7 @@ Let $A$ be an $m \times n$ matrix. Then $L_A$ is linear. Moreover, if $B \in M_{
     
     \item[(c)] $L_{A+B} = L_A + L_B$, $L_{aA} = aL_A$
     
-    \item[(d)] If $T : F^n \to F^m$ is linear, then there exists unique matric $C$ (namely $C = \begin{bmatrix} UT \end{bmatrix}_\beta^\gamma$) such that $T = L_C$.
+    \item[(d)] If $T : F^n \to F^m$ is linear, then there exists unique matrix $C$ (namely $C = \begin{bmatrix} UT \end{bmatrix}_\beta^\gamma$) such that $T = L_C$.
     
     \item[(e)] If $E$ is an $n \times p$ matrix, then $L_{AE} = L_AL_E$
     
