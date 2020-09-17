@@ -843,9 +843,9 @@ UT
     &= \sum_{i = 1}^mB_{ij}\cdot \sum_{k = 1}^pA_{ki}z_k \\
     &= \sum_{k = 1}^p\left(\sum_{i = 1}^mA_{ki}B_{ij}\right)z_k.
 \end{align*} 
-If $C = \begin{pmatrix}
+If $C = \begin{bmatrix}
 UT
-\end{pmatrix}_\alpha^\gamma$, then $$C_{kj} = \sum_{i = 1}^mA_{ki}B_{ij}.$$
+\end{bmatrix}_\alpha^\gamma$, then $$C_{kj} = \sum_{i = 1}^mA_{ki}B_{ij}.$$
 \end{sol}
 
 \noindent\textbf{Example:} Let $\alpha = \{1, x, x^2\}$ and  $\beta = \{1, x, x^2, x^3\}$ be standard bases for $P_2(\mathbb{R})$ and $P_3(\mathbb{R})$. Let $U : P_3(\mathbb{R}) \to P_2(\mathbb{R})$ and $T : P_2(\mathbb{R}) \to P_3(\mathbb{R})$ defined by $U(f(x)) = f'(x)$ and $T(f(x)) = \int_0^xf(t)dt.$ From calculus, $UT = I$. We can see 
@@ -1011,33 +1011,116 @@ Let $T : V \to W$ be linear. A function $U : W \to V$ is called an \textit{inver
 Let $T : V \to W$ be linear and invertible. Then $T^{-1} : W \to V$ is linear.
 \end{theorem}
 
+\begin{sol}
+Suppose $T : V \to W$ is linear and invertible. Then $T^{-1} : W \to V$. Let $y_1, y_2 \in W$. Since $T$ is bijective, there exists unique $x_1, x_2 \in V$ such that $T(x_1) = y_1$ and $T(x_2) = y_2$. Let $c \in \mathbb{F}$. Then \begin{align*}
+    T^{-1}(cy_1 + y_2) &= T^{-1}(cT(x_1) + T(x_2)) \\ 
+    &= T^{-1}(T(cx_1 + x_2)) \\
+    &= cx_1 + x_2 \\
+    &= cT^{-1}(y_1) + T^{-1}(y_2).
+\end{align*} 
+\end{sol}
+
 \begin{definition}{7}
-Let $A$ be an $n \times m$ matrix. Then $A$ is \textit{invertible} if there exists an $n \times n$ matrix $B$ such that $AB = BA = I$. Then $B$ is called the inverse of $A$ denoted by $A^{-1}$.
+Let $A$ be an $n \times n$ matrix. Then $A$ is \textit{invertible} if there exists an $n \times n$ matrix $B$ such that $AB = BA = I$. Then $B$ is called the inverse of $A$ denoted by $A^{-1}$.
 \end{definition}
 
 \begin{lemma}{19}
 Let $T$ be an invertible transformation from $V$ to $W$. Then $V$ is finite-dimensional if and only if $W$ is. In this case $dim(V) = dim(W)$. 
 \end{lemma}
 
+\begin{sol}
+Let $T$ be an invertible transformation from $V$ to $W$. Then $T$ must be bijective. Suppose $V$ is finite-dimensional. Let $\beta = \{v _1, \dots, v_n\}$ be a basis for $V$. Then $dim(V) = n$. Then $T(\beta) = \{T(v_1), \dots, T(v_n)\}$ generates $W$ because $T$ is surjective. Let $w \in W$. Then there exists $v \in V$ such that $T(v) = w$. Then $v = \sum_{i = 1}^n a_iv_i$. Thus, $T(v) = \sum_{i = 1}^na_iT(v_i)$. As a result, $dim(W) \leq n = dim(V)$. However, $T^{-1} : W \to V$ is also linear. Then the same argument implies $dim(V) \leq dim(W)$. Therefore, $dim(V) = dim(W)$.
+\end{sol}
+
 \begin{theorem}{2.18}
 Let $V$, $W$ be finite-dimensional with ordered bases $\beta$ and $\gamma$. Let $T : V \to W$ be linear. Then $T$ is invertible if and only if $\begin{bmatrix} T \end{bmatrix}_\beta^\gamma$ is invertible. Furthermore $\begin{bmatrix} T^{-1} \end{bmatrix}_\gamma^\beta = (\begin{bmatrix} T \end{bmatrix}_\beta^\gamma)^{-1}$.
 \end{theorem}
 
-\begin{sol}
+\textit{Proof.} (Outline)
 \begin{itemize}
     \item If $T$ is invertible, then by the lemma $dim(V) = dim(W)$ and the fact that $\begin{bmatrix} T \end{bmatrix}_\beta^\gamma$ follows from previous facts and $T^{-1}T = I_V$.
     
     \item If $\begin{bmatrix} T \end{bmatrix}_\beta^\gamma$ is invertible then it has an inverse $B$ and so there is a transformation $U : W \to V$ with $B = \begin{bmatrix} U \end{bmatrix}_\gamma^\beta$. Now check that $UT = I_V$. 
 \end{itemize}
+
+\begin{sol}
+Suppose $T$ is invertible. Then by the lemma $dim(V) = dim(W) = n$, and in addition, there exists $U : W \to V$ such that $TU = I_W$ and $UT = I_V$. Let $\beta , \gamma$ be bases for $V, W$ respectively. Then $$I = \begin{bmatrix}
+I_V
+\end{bmatrix}_\beta = \begin{bmatrix}
+UT
+\end{bmatrix}_\beta = \begin{bmatrix}
+U
+\end{bmatrix}_\gamma^\beta\begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma.$$ In the same way, $$\begin{bmatrix}
+I_W
+\end{bmatrix}_\gamma = \begin{bmatrix}
+TU
+\end{bmatrix}_\gamma = \begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma \begin{bmatrix}
+U
+\end{bmatrix}_\gamma^\beta.$$ Thus, $\begin{bmatrix}
+U
+\end{bmatrix}_\gamma^\beta = \left( \begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma \right)^{-1}.$
+
+Now, assume $\begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma$ is invertible. Let $A = \begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma$. Then $A$ is an $n \times n$ matrix. Let $\beta = \{v_1, \dots, v_n\}$ and $\gamma = \{w_1, \dots, w_n\}$. Since $A$ is invertible, there exists $B$ such that $AB = I_n = BA$. Then there exists unique linear transformation $U: W \to V$ such that $U(w_j) = \sum_{i = 1}^n B_{ij}v_i$. Then $\begin{bmatrix}
+U
+\end{bmatrix}_\gamma^\beta = B$. Thus $\begin{bmatrix}
+TU
+\end{bmatrix}_\gamma = \begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma \begin{bmatrix}
+U
+\end{bmatrix}_\gamma^\beta = A \cdot B = I_n = \begin{bmatrix}
+I_W
+\end{bmatrix}_\gamma$. Also, $\begin{bmatrix}
+UT
+\end{bmatrix}_\beta = B \cdot A = I_n = \begin{bmatrix}
+I_V
+\end{bmatrix}_\beta$. Thus $TU = I_W$ and $UT = I_V$.
 \end{sol}
 
 \begin{definition}{8}
 Vector space $V$ is isomorphic to $W$ if there is an invertible linear transformation $T : V \to W$.
 \end{definition}
 
+\noindent\textbf{Example:} Let $T : P_3(\mathbb{R}) \to M_{2 \times 2}(\mathbb{R})$ be defined by $$T(f) = \begin{pmatrix}
+f(1) & f(2) \\ f(3) & f(4)
+\end{pmatrix}.$$ Then 
+\begin{itemize}
+    \item[(1)] $T$ is linear.
+    \begin{align*}
+        T(f + g) &= T(f) + T(g) \\ T(cf) &= cT(f)
+    \end{align*}
+    
+    \item[(2)] $T$ is injective. (This is because $N(T) = \{0\}$.)
+    
+    \item[(3)] $dim(P_3(\mathbb{R})) = 4$ and $dim(M_{2 \times 2}(\mathbb{R})) = 4$
+    
+    \item[(4)] $T$ is surjective
+    
+    \item[(5)] $T$ is bijective
+    
+    \item[(6)] $P_3(\mathbb{R}) \cong M_{2 \times 2}(\mathbb{R})$
+\end{itemize}
+
 \begin{theorem}{2.19}
 Let $V$, $W$ be finite-dimensional over $F$. Then $V$ is isomorphic to $W$ if and only if $dim(V) = dim(W)$.
 \end{theorem}
+
+\begin{sol} \text{ }
+
+($\Longrightarrow$): Suppose $V \cong W$. By the lemma, $dim(V) = dim(W)$.
+
+($\Longleftarrow$): Suppose $dim(V) = dim(W)$. Let $\beta = \{v_1, \dots, v_n\}$ be a basis for $V$ and let $\gamma = \{w_1, \dots, w_n\}$ be a basis for $W$. Then there exists a unique linear transformation $T : V \to W$ such that $T(v_i) = w_i$. Then $T$ is surjective. Since $dim(V) = dim(W)$, $T$ is injective. Thus $T$ is invertible. Therefore, $V \cong W$.
+\end{sol}
 
 \begin{theorem}{2.20}
 Let $V$, $W$ be finite-dimensional over $F$ of dimensions $n$ and $m$. Let $\beta$, $\gamma$ be ordered bases for $V$ and $W$. Then $\phi : \mathcal{L}(V, W) \to M_{m \times n}(F)$ given by $\phi(T) = \begin{bmatrix} T \end{bmatrix}_\beta^\gamma$ for $T \in \mathcal{L}(V, W)$ is an isomorphism.
