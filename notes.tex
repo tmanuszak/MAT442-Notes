@@ -1383,6 +1383,13 @@ $$dim(V^*) = dim(V)$$
 
 \noindent Let $\beta = \{x_1, \dots, x_n\}$ for $v \in V$ let $\begin{bmatrix} v \end{bmatrix}_\beta = (a_1, \dots, a_n)^T$. Define $$f_i(v) = a_i.$$
 
+\noindent\textbf{Example:} 
+\begin{itemize}
+    \item[(1)] Let $V =$ continuous functions $f:[0, 2\pi] \to \mathbb{R}$. Let $g \in V$. Define $h : V \to \mathbb{R}$ by $$h(x) = \frac{1}{2\pi}\int_0^{2\pi}x(t)g(t)dt.$$ Note, $h$ is linear. If $g(t) = \sin(nt)$ or $g(t) = \cos(nt)$, then $h(x)$ is called the $n$th Fourier coefficient of $x$.
+    
+    \item[(2)] Let $V = M_{n \times n}(\mathbb{F})$ and $f : V \to \mathbb{F}$ where $f(A) = tr(A)$.
+\end{itemize}
+
 \begin{theorem}{2.24}
 Let $V$ be a finite-dimensional vector space with ordered basis $\beta = \{x_1, \dots, x_n\}$ and let $\beta^* = \{f_1, \dots, f_n\}$. Then $\beta^*$ is an ordered basis for $V^*$ and for $f \in V^*$ where $$f = \sum_{i = 1}^n f(x_i)f_i.$$ Note, $f_i : V \to \mathbb{F}$ is defined as $f_i(x_j) = \delta_{ij} = \begin{cases} 
             1 &\text{if } i=j, \\
@@ -1390,19 +1397,32 @@ Let $V$ be a finite-dimensional vector space with ordered basis $\beta = \{x_1, 
         \end{cases}.$
 \end{theorem}
 
-\begin{sol}
+\textit{Proof.} (Outline)
 \begin{itemize}
     \item Enough to show $f = \sum f(x_i)f_i$.
     
     \item Let $F \coloneqq \sum f(x_i)f_i$. Then $F(x_j) = f(x_j)$ for every $j$.
 \end{itemize}
+
+\begin{sol}
+Let $V$ be a finite-dimensional vector space with ordered basis $\beta = \{x_1, \dots, x_n\}$ and let $\beta^* = \{f_1, \dots, f_n\} \subseteq V^*$ where $n = dim(V) = dim(V^*)$. Since $| \beta^*| = n = dim(V^*)$, it is enough to show that $\beta^*$ generates $V^*$. To that end, we will argue that for $f \in V^*$, $$f = \sum_{i = 1}^n f(x_i)f_i.$$ Let $g = \sum_{i = 1}^n f(x_i)f_i$. Then
+\begin{align*}
+    g(x_j) &= \left( \sum_{i = 1}^n f(x_i)f_i \right)(x_j) \\
+    &= \sum_{i = 1}^nf(x_i)f_i(x_j) \\
+    &= \sum_{i = 1}^n f(x_i)\delta_{ij} \\
+    &= f(x_j).
+\end{align*} Thus, $g(x_j) = f(x_j)$ for every $x_j \in \beta$. Therefore $g = f$. 
 \end{sol}
+
+\begin{definition}{10}
+An ordered basis $\beta^* = \{f_1, \dots, f_n\}$ for $V^*$ such that $f_i(x_j) = \delta_{ij}$ is called the \textit{dual basis} of $\beta = \{x_1, \dots, x_n\}$.
+\end{definition}
 
 \begin{theorem}{2.25}
 Let $V, W$ be finite-dimensional vector spaces over $F$ with ordered bases $\beta$ and $\gamma$. Let $T : V \to W$ be linear. Then $T^t : W^* \to V^*$ given by $T^t(g) = gT$ is linear and $$\begin{bmatrix} T^t \end{bmatrix}_{\gamma^*}^{\beta^*} = (\begin{bmatrix} T \end{bmatrix}_\beta^\gamma)^t.$$
 \end{theorem}
 
-\begin{sol}
+\textit{Proof.} (Outline)
 \begin{itemize}
     \item It's easy to see that $T^t$ is a linear transformation from $W^*$ to $V^*$.
     
@@ -1411,6 +1431,40 @@ Let $V, W$ be finite-dimensional vector spaces over $F$ with ordered bases $\bet
     \item The $j$th column of $\begin{bmatrix} T^t \end{bmatrix}_{\gamma^*}^{\beta^*}$ is $T^t(g_j)$ which is $$\sum_{k = 1}^n (g_jY)(x_k)f_k.$$
     
     \item Thus the $i, j$-th entry is $(T^t(g_j))(x_i)$ which is $A_{ji}$.
+\end{itemize}
+
+\begin{sol}
+Let $T^t : W^* \to V^*$, $T^t(g) = gT$. 
+\begin{itemize}
+    \item[(1)] Note that $gT : V \to \mathbb{F}$ and $gT$ is a linear transformation. Thus $T^t(g) \in V^*$. 
+    
+    \item[(2)] We have $T^t$ is linear. So,
+    \begin{align*}
+        T^t(cg + h) &= (cg+h)T \\
+        &= cgT + hT \\
+        &= cT^t(g) + T^t(h).
+    \end{align*}
+    
+    \item[(3)] Lastly, $\begin{bmatrix}
+    T^t
+    \end{bmatrix}_{\gamma^*}^{\beta^*} = \left( \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta^\gamma \right)^t$. Let $\beta = \{x_1, \dots, x_n\}$, $\gamma = \{y_1, \dots y_m\}$, $\beta^* = \{f_1, \dots, f_n\}$, and $\gamma^* = \{g_1, \dots, g_m\}$. Let $A = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta^\gamma$. To obtain the $j$th column of $\begin{bmatrix}
+    T
+    \end{bmatrix}_{\gamma^*}^{\beta^*}$, \begin{align*}
+        T^t(g_j) &= g_jT \\
+        &= \sum_{k = 1}^n (g_jT)x_kf_k. 
+    \end{align*} Thus, the $i,j$th entry of $\begin{bmatrix}
+    T
+    \end{bmatrix}_{\gamma^*}^{\beta^*}$ is
+    \begin{align*}
+        (g_jT)(x_i) &= g_j(T(x_i)) \\
+        &= g_j\left(\sum_{k = 1}^mA_{ki}y_i\right) \\
+        &= \sum_{k = 1}^mA_{ki}g_j(y_i) \tag*{($g_j(y_i) = \delta_{ij}$)} \\
+        &= A_{ji}. 
+    \end{align*}
 \end{itemize}
 \end{sol}
 
@@ -1443,22 +1497,54 @@ An $n \times n$ elementary matrix is a matrix obtained from $I_n$ by an elementa
 \end{definition}
 
 \begin{theorem}{3.1}
-Let $A \in M_{m \times n}(F)$ and suppose $B$ is obtained by performing an elementary row (column) operation. Then there exists an $m \times m (n \times n)$ elementary matrix $E$ such that $B = EA (B = AE)$.
+Let $A \in M_{m \times n}(\mathbb{F})$ and suppose $B$ is obtained by performing an elementary row (column) operation. Then there exists an $m \times m (n \times n)$ elementary matrix $E$ such that $B = EA (B = AE)$.
 \end{theorem}
+
+\noindent\textbf{Example:} \text{ }
+Note, $\begin{pmatrix}
+1 & -7 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{pmatrix}$ is an elementary matrix. $$\begin{pmatrix}
+a-7x & b-7y & c-7z \\ x & y & z \\ u & v & w
+\end{pmatrix} = \begin{pmatrix}
+1 & -7 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{pmatrix}.$$
 
 \begin{theorem}{3.2}
 Elementary matrices are invertible and the inverse of an elementary matrix is an elementary matrix of the same type.
 \end{theorem}
 
+\noindent\textbf{Example:}\text{ }
+Let $A = \begin{pmatrix}
+1 & -7 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{pmatrix}$. Then \begin{align*}
+    AA^{-1} &= \begin{pmatrix}
+1 & -7 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{pmatrix}\begin{pmatrix}
+1 & 7 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{pmatrix} \\
+&= \begin{pmatrix}
+1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+\end{pmatrix}.
+\end{align*}
+
 \subsection{The rank of a matrix and matrix inverse}
 
 \begin{definition}{3}
-Let $A \in M_{m \times n}(F)$. The $rank(A)$ is the rank of $L_A : F^n \to F^m$.
+Let $A \in M_{m \times n}(\mathbb{F})$. The $rank(A)$ is the rank of $L_A : \mathbb{F}^n \to \mathbb{F}^m$. Also $rank(L_A) = dim(R(A))$.
 \end{definition}
 
 \begin{theorem}{3.3}
 Let $T : V \to W$ be linear and let $\beta, \gamma$ be ordered bases for $V$ and $W$. Then $$rank(T) = rank(\begin{bmatrix} T \end{bmatrix}_{\beta}^\gamma).$$
 \end{theorem}
+
+Recall, where $V$ and $W$ are vector spaces with bases $\beta$ and $\gamma$, respectively, and $A = \begin{bmatrix}
+T
+\end{bmatrix}_\beta^\gamma$, we have \begin{center}
+\begin{tikzcd}  
+V \arrow[r,"T"] \arrow[<->]{d} & W \arrow[<->]{d}\\
+\mathbb{F}^n \arrow[r,"L_A"] & \mathbb{F}^m
+\end{tikzcd} 
+\end{center}
 
 \begin{theorem}{3.4}
 Let $A$ be an $m \times n$ matrix. If $P$ and $Q$ are invertible $m \times m$ and $n \times n$ matrices, then 
@@ -1473,9 +1559,9 @@ and so $rank(PAQ) = rank(A)$.
 
 \begin{sol}
 \begin{itemize}
-    \item $R(L_{AQ}) = R(L_A)$ because $L_Q(F^n) = F^n$.
+    \item $R(L_{AQ}) = R(L_A)$ because $L_Q(\mathbb{F}^n) = \mathbb{F}^n$.
     
-    \item $dim(L_P(L_A(F^n))) = dim(L_A(F^n))$ because $L_P : F^n \to F^n$ is an isomorphism.
+    \item $dim(L_P(L_A(F^n))) = dim(L_A(F^n))$ because $L_P : \mathbb{F}^n \to \mathbb{F}^n$ is an isomorphism.
 \end{itemize}
 \end{sol}
 
