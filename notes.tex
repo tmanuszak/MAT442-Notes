@@ -780,7 +780,7 @@ Let $T,U : V \to W$ be linear. Then,
 
 \begin{itemize}
     \item $\begin{bmatrix} T+U \end{bmatrix}_\beta^\gamma = \begin{bmatrix} T \end{bmatrix}_\beta^\gamma + \begin{bmatrix} U \end{bmatrix}_\beta^\gamma$
-    \item $\begin{bmatrix} T \end{bmatrix}_\beta^\gamma = a\begin{bmatrix} T \end{bmatrix}_\beta^\gamma$.
+    \item $\begin{bmatrix} aT \end{bmatrix}_\beta^\gamma = a\begin{bmatrix} T \end{bmatrix}_\beta^\gamma$.
 \end{itemize}
 \end{theorem}
 
@@ -941,7 +941,7 @@ Let $A$ be an $m \times n$ matrix. Then $L_A$ is linear. Moreover, if $B \in M_{
     
     \item[(c)] $L_{A+B} = L_A + L_B$, $L_{aA} = aL_A$
     
-    \item[(d)] If $T : \mathbb{F}^n \to \mathbb{F}^m$ is linear, then there exists unique matrix $C$ (namely $C = \begin{bmatrix} UT \end{bmatrix}_\beta^\gamma$) such that $T = L_C$.
+    \item[(d)] If $T : \mathbb{F}^n \to \mathbb{F}^m$ is linear, then there exists unique matrix $C$ (namely $C = \begin{bmatrix} T \end{bmatrix}_\beta^\gamma$) such that $T = L_C$.
     
     \item[(e)] If $E$ is an $n \times p$ matrix, then $L_{AE} = L_AL_E$
     
@@ -1865,9 +1865,27 @@ Let $s \in K$. Then $K = s + K_H$. \begin{itemize}
 Let $Ax = b$ be a system of $n$ linear equations in $n$ unknowns. Then $A$ is invertible if and only if the system has exactly one solution. Namely, $x = A^{-1}b$.
 \end{theorem}
 
+\begin{sol} Let $Ax = b$ be a system of $n$ linear equations in $n$ unknowns.
+\begin{itemize}
+    \item[($\Longrightarrow$):] Suppose $A$ is invertible. Then $x = A^{-1}b$ is a solution to $Ax = b$. Clearly, $AA^{-1}b = b$. If $s$ is a solution to $Ax = b$, then $As = b$. So, $A^{-1}As = A^{-1}b$ implies $s = A^{-1}b$. 
+    
+    \item[($\Longleftarrow$):] Suppose $Ax = b$ has exactly one solution. Let $s$ be this solution. Let $K_H$ be the set of solutions to $Ax = 0$. Then, by theorem 3.9, $\{s\} = \{s\} + K_H$. Thus, $K_H = \{0\}$. Therefore, $N(L_A) = K_H = \{0\}$. Therefore, $L_A$ is injective and surjective. Thus, $L_A$ has an inverse. So, $A$ has an inverse. 
+\end{itemize}
+\end{sol}
+
 \begin{theorem}{3.11}
 The system $Ax = b$ is consistent if and only if $rank(A) = rank(A | b)$.
 \end{theorem}
+
+\begin{sol} Note, $R(L_A) = span(\{ a_1, \dots, a_n \})$ where $a_i$ is the $i$th column of $A$.
+\begin{align*}
+    Ax = b\text{ is consistent } &\Longleftrightarrow b \in R(L_A) \\
+    &\Longleftrightarrow b \in span(\{ a_1, \dots, a_n \}) \\
+    &\Longleftrightarrow span(\{ a_1, \dots, a_n, b \}) = span(\{ a_1, \dots, a_n \}) \\
+    &\Longleftrightarrow dim(span(\{ a_1, \dots, a_n, b \})) = dim(span(\{ a_1, \dots, a_n \})) \\
+    &\Longleftrightarrow rank(A | b) = rank(A).
+\end{align*}
+\end{sol}
 
 \section{Determinants}
 \subsection{Determinants of order 2}
@@ -1906,6 +1924,118 @@ Let $A \in M_{2 \times 2}(\mathbb{F})$. Then the determinant of $A$ is non-zero 
 A_{22} & -A_{12} \\ -A_{21} & A_{22}
 \end{pmatrix}$.
 \end{theorem}
+
+\begin{sol}
+Let $A \in M_{2 \times 2}(\mathbb{F})$.
+\begin{itemize}
+    \item[($\Longrightarrow$):] Let $M = \frac{1}{det(A)}\begin{pmatrix}
+    A_{22} & -A_{12} \\ -A_{21} & A_{11}
+    \end{pmatrix}$. Then, \begin{align*}
+        AM &= \frac{1}{det(A)}\begin{pmatrix}
+        A_{11} & A_{12} \\ A_{21} & A_{22}
+        \end{pmatrix}\begin{pmatrix}
+    A_{22} & -A_{12} \\ -A_{21} & A_{11}
+    \end{pmatrix} \\
+    &= I_2 \\
+    &= MA.
+    \end{align*} 
+    
+    \item[($\Longleftarrow$):] Suppose $A$ is invertible. Then $rank(A) = 2$. If $A = \begin{pmatrix}
+        A_{11} & A_{12} \\ A_{21} & A_{22}
+        \end{pmatrix}$, then $A_{11} \neq 0$ or $A_{12} \neq 0$.
+        \begin{itemize}
+            \item[(a)] Suppose $A_{11} \neq 0$. Then we can transform $A$ into $$\begin{pmatrix}
+            A_{11} & A_{12} \\ 0 & A_{22}-\frac{A_{21}A_{12}}{A_{11}}
+            \end{pmatrix},$$ which has a $rank$ of 2. Therefore, $A_{22}-\frac{A_{21}A_{12}}{A_{11}} \neq 0$. Thus, $det(A) \neq 0$. 
+            
+            \item[(b)] Suppose $A_{11} = 0$. Then $A_{12} \neq 0$ and $A_{21} \neq 0$. So, $det(A) = -A_{12}-A_{21} \neq 0$. 
+        \end{itemize}
+\end{itemize}
+\end{sol}
+
+\noindent\textbf{Observation:} Let $\delta : M_{2 \times 2}(\mathbb{F}) \to \mathbb{F}$ be such that
+\begin{itemize}
+    \item[(1)] 
+    $\delta \begin{pmatrix}
+    u + kv \\ w
+    \end{pmatrix} = \delta \begin{pmatrix}
+    u \\ w
+    \end{pmatrix} + k\delta \begin{pmatrix}
+    v \\ w
+    \end{pmatrix} \\ 
+    \delta \begin{pmatrix}
+    w \\ u + kv
+    \end{pmatrix} = \delta \begin{pmatrix}
+    w \\ u
+    \end{pmatrix} + k\delta \begin{pmatrix}
+    w \\ v
+    \end{pmatrix}$;
+
+    \item[(2)] $\delta \begin{pmatrix}
+    u \\ u
+    \end{pmatrix} = 0;$
+    
+    \item[(3)] $\delta(I_2) = 1$.
+\end{itemize} Then $\delta = det$.
+
+\vspace{1em}
+
+\begin{sol}
+We have \begin{align*}
+    \delta \left( \begin{pmatrix}
+    1 & 0 \\ 0 & 1
+    \end{pmatrix} \right) + \delta \left( \begin{pmatrix}
+    0 & 1 \\ 0 & 1
+    \end{pmatrix} \right) &= \delta \left( \begin{pmatrix}
+    1 & 1 \\ 0 & 1
+    \end{pmatrix} \right) \\
+    \delta \left( \begin{pmatrix}
+    0 & 1 \\ 1 & 0
+    \end{pmatrix} \right) + \delta \left( \begin{pmatrix}
+    1 & 0 \\ 1 & 0
+    \end{pmatrix} \right) &= \delta \left( \begin{pmatrix}
+    1 & 1 \\ 1 & 0
+    \end{pmatrix} \right)
+\end{align*} and $$\delta \left( \begin{pmatrix}
+    1 & 1 \\ 0 & 1
+    \end{pmatrix} \right) + \delta \left( \begin{pmatrix}
+    1 & 1 \\ 1 & 0
+    \end{pmatrix} \right) = \delta \left( \begin{pmatrix}
+    1 & 1 \\ 1 & 1
+    \end{pmatrix} \right) = 0.$$Thus, $$\delta \left( \begin{pmatrix}
+    1 & 0 \\ 0 & 1
+    \end{pmatrix} \right) + \delta \left( \begin{pmatrix}
+    0 & 1 \\ 1 & 0
+    \end{pmatrix} \right) = 0$$and $$\delta \left( \begin{pmatrix}
+    0 & 1 \\ 1 & 0
+    \end{pmatrix} \right)=  -1.$$Then, \begin{align*}
+        \delta \left( \begin{pmatrix}
+    a & b \\ c & d
+    \end{pmatrix} \right) &= \delta \left( \begin{pmatrix}
+    a & 0 \\ c & d
+    \end{pmatrix} \right) + \delta \left( \begin{pmatrix}
+    0 & b \\ c & d
+    \end{pmatrix} \right) \\
+    &= a\delta \left( \begin{pmatrix}
+    1 & 0 \\ c & d
+    \end{pmatrix} \right) + b\delta \left( \begin{pmatrix}
+    0 & 1 \\ c & d
+    \end{pmatrix} \right) \\
+    &= a \left( c\delta \left( \begin{pmatrix}
+    1 & 0 \\ 1 & 0
+    \end{pmatrix} \right) + d\delta \left( \begin{pmatrix}
+    1 & 0 \\ 0 & 1
+    \end{pmatrix} \right) \right) + b\left( c\delta \left( \begin{pmatrix}
+    0 & 1 \\ 1 & 0
+    \end{pmatrix} \right) + d\delta \left( \begin{pmatrix}
+    0 & 1 \\ 0 & 1
+    \end{pmatrix} \right) \right) \\
+    &= ad - bc \\
+    &= det\left( \begin{pmatrix}
+    a & b \\ c & d
+    \end{pmatrix} \right).
+    \end{align*}
+\end{sol}
 
 \subsection{Determinants of order $n$}
 
