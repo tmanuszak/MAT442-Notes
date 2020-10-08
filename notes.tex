@@ -2037,6 +2037,148 @@ We have \begin{align*}
     \end{align*}
 \end{sol}
 
+\noindent\textbf{Observation:} When $\mathbb{F} = \mathbb{R}$ and $M_{2 \times 2}(\mathbb{R})$ and for $\begin{pmatrix}
+u \\ v
+\end{pmatrix}$, then we have the following diagram.
+
+\begin{center}
+\begin{tikzpicture}
+  \draw[->] (-1,0)--(5,0);
+  \draw[->] (0,-1)--(0,5);
+  \draw[->, thick] (0,0)--(3,1) node[below]{$v$};
+  \draw[->, thick] (0,0)--(1,2) node[left]{$u$};
+  \draw[thick, dotted] (3,1)--(4,3);
+  \draw[thick, dotted] (1,2)--(4,3);
+  \node[] at (2,1.5) {$A$};
+\end{tikzpicture}
+\end{center}
+
+We will define the area of the parallelogram to be $A\begin{pmatrix}
+u \\ v
+\end{pmatrix}$. If $u$ and $v$ are linearly dependent, then $A \begin{pmatrix}
+u \\ v
+\end{pmatrix} = 0$. We can show $A \begin{pmatrix}
+u \\ v
+\end{pmatrix} = \text{sign}\left(det\begin{pmatrix}
+u \\ v
+\end{pmatrix} \right)det\begin{pmatrix}
+u \\ v
+\end{pmatrix}$.
+
+\vspace{1em}
+
+\begin{sol}
+Define $O : M_{2 \times 2}(\mathbb{R}) \to \{-1, 1\}$ by $$O\begin{pmatrix}
+u \\ v
+\end{pmatrix} = \begin{cases} 
+            \frac{det\begin{pmatrix}
+            u \\ v
+            \end{pmatrix}}{\left| det\begin{pmatrix}
+            u \\ v
+            \end{pmatrix} \right|} & \text{if $u,v$ are linearly independent} \\
+            1 & \text{if $u,v$ are linearly dependent.}
+        \end{cases}$$
+Thus, we can show $det\begin{pmatrix}
+u \\ v
+\end{pmatrix} = O\begin{pmatrix}
+u \\ v
+\end{pmatrix}A\begin{pmatrix}
+u \\ v
+\end{pmatrix}$. We will show $\delta\begin{pmatrix}
+u \\ v
+\end{pmatrix} = O\begin{pmatrix}
+u \\ v
+\end{pmatrix}A\begin{pmatrix}
+u \\ v
+\end{pmatrix}$ satisfies the previous observation. Note, $$\delta\begin{pmatrix}
+u \\ u
+\end{pmatrix} = O\begin{pmatrix}
+u \\ u
+\end{pmatrix}A\begin{pmatrix}
+u \\ u
+\end{pmatrix} = 0 \text{\hspace{1em} and \hspace{1em}} \delta\begin{pmatrix}
+I_2
+\end{pmatrix} = \delta\begin{pmatrix}
+e_1 \\ e_2
+\end{pmatrix}A\begin{pmatrix}
+e_1 \\ e_2
+\end{pmatrix} = 1.$$ We now have three steps.
+\begin{itemize}
+    \item[(a)] If $c = 0$, then $\delta \begin{pmatrix}
+    u \\ 0
+    \end{pmatrix} = 0$. If $c \neq 0$, then $\delta \begin{pmatrix}
+    u \\ cv
+    \end{pmatrix} = O \begin{pmatrix}
+    u \\ cv
+    \end{pmatrix} A \begin{pmatrix}
+    u \\ cv
+    \end{pmatrix}$ and $A\begin{pmatrix}
+    u \\ cv
+    \end{pmatrix} = |c|A\begin{pmatrix}
+    u \\ v
+    \end{pmatrix}$ and $O\begin{pmatrix}
+    u \\ cv
+    \end{pmatrix} = \frac{det \begin{pmatrix}
+    u \\ cv
+    \end{pmatrix}}{\left| det \begin{pmatrix}
+    u \\ cv
+    \end{pmatrix} \right|} = \frac{c}{|c|}$. So, $\delta \begin{pmatrix}
+    u \\ cv
+    \end{pmatrix} = c \delta \begin{pmatrix}
+    u \\ v
+    \end{pmatrix}$.
+    
+    \item[(b)] Note, $\delta \begin{pmatrix}
+    u \\ u + v
+    \end{pmatrix} = \delta \begin{pmatrix}
+    u \\ v
+    \end{pmatrix}$. If $a = 0$, then $\delta \begin{pmatrix}
+    u \\ au + bv
+    \end{pmatrix} = \delta \begin{pmatrix}
+    u \\ bv
+    \end{pmatrix} = b \delta \begin{pmatrix}
+    u \\ v
+    \end{pmatrix}$. If $a \neq 0$, then \begin{align*}
+        \delta \begin{pmatrix}
+        u \\ au + bv
+        \end{pmatrix} &= a \delta \begin{pmatrix}
+        u \\ u + \frac{b}{a}v
+        \end{pmatrix} \\
+        &= a \delta \begin{pmatrix}
+        u \\ \frac{b}{a}v
+        \end{pmatrix} \\
+        &= b \delta \begin{pmatrix}
+        u \\ v
+        \end{pmatrix}.
+    \end{align*}
+    
+    \item[(c)] Assume $u \neq 0$. Let $w \in \mathbb{R}^2$ such that $uw$ is linearly independent. Then $v_1 = a_1u + b_1w$ and $v_2 = a_2u + b_2w$. So, \begin{align*}
+        \delta \begin{pmatrix}
+        u \\ v_1 + v_2
+        \end{pmatrix} &= \delta \begin{pmatrix}
+        u \\ (a_1 + a_2)u + (b_1 + b_2)w
+        \end{pmatrix} \\
+        &= (b_1 + b_2)\begin{pmatrix}
+        u \\ w
+        \end{pmatrix}. \tag*{(by (b))}
+    \end{align*} Also, by (b), $\delta \begin{pmatrix}
+    u \\ v_1
+    \end{pmatrix} + \delta \begin{pmatrix}
+    u \\ v_2
+    \end{pmatrix} = b_1 \begin{pmatrix}
+    u \\ w
+    \end{pmatrix} + b_2 \delta \begin{pmatrix}
+    u \\ w
+    \end{pmatrix}$. Therefore, $$\delta \begin{pmatrix}
+        u \\ v_1 + v_2
+        \end{pmatrix} = \delta \begin{pmatrix}
+    u \\ v_1
+    \end{pmatrix} + \delta \begin{pmatrix}
+    u \\ v_2
+    \end{pmatrix}.$$
+\end{itemize}
+\end{sol}
+
 \subsection{Determinants of order $n$}
 
 Let $\tilde{A}_{ij}$ be the matrix obtained from $A$ by deleting the $i$th row and the $j$th column.
@@ -2052,6 +2194,21 @@ Let $A \in M_{n \times n}(\mathbb{F})$.
 \end{definition}
 
 \noindent The cofactor of the $i,j$th entry of $A$, $$c_{ij} = (-1)^{i + j}det(\tilde{A}_{ij}).$$
+
+\noindent\textbf{Example:} \begin{align*}
+    \left| \begin{array}{ccc}
+         0 & 1 & 3 \\ -2 & -3 & -5 \\ 4 & -4 & 4
+    \end{array} \right| &= 0 \cdot (-1)^2 \cdot \left| \begin{array}{cc}
+        -3 & -5 \\
+        -4 & 4
+    \end{array} \right| + 1 \cdot (-1)^3 \cdot \left| \begin{array}{cc}
+        -2 & -5 \\ 4 & 4
+    \end{array} \right| + 3 \cdot (-1)^4 \cdot \left| \begin{array}{cc}
+        -2 & -3 \\ 4 & -4
+    \end{array} \right| \\
+    &= 0 - 12 + 60 \\
+    &= 48.
+\end{align*}
 
 \begin{theorem}{4.3}
 Let $a_1, \dots, a_n \in \mathbb{F}^n$, let $k \in \mathbb{F}$ and suppose $a_r = u + kv$ for some $u, v \in \mathbb{F}^n$. Then
@@ -2081,9 +2238,16 @@ For $A \in M_{n \times n}(\mathbb{F})$ and $i \in \{1, \dots, n\}$ $$det(A) = \s
 If $A \in M_{n \times n}(\mathbb{F})$ has two identical rows, then $det(A) = 0$.
 \end{corollary}
 
-\begin{sol}
-Induction on $n$.
-\end{sol}
+\textit{Proof.}
+Let $a_r = u + kv$. \begin{itemize}
+    \item[] (Base Case): Let $n = 1$. Then clearly, $det(A) = 0$. 
+    
+    \item[] (Inductive Step): Let $n \geq 2$. If $r = 1$, then $A_{1j} = u_j + kv_j$. Let $B$ and $C$ be matrices obtained from $A$ by replacing row $r$ by $u$ and $v$. Then $$det(\tilde{A}_{1j}) = det(\tilde{B}_{1j}) = det(\tilde{C}_{1j}).$$ Thus, \begin{align*}
+        det(A) &= \sum_{j = 1}^n(-1)^{1 + j}A_{1j}det(\tilde{A}_{1j}) \\
+        &= \sum_{j = 1}^n(-1)^{1 + j}B_{1j}det(\tilde{B}_{1j}) + \sum_{j = 1}^n(-1)^{1 + j}C_{1j}det(\tilde{C}_{1j}) \\ 
+        &= det(B) + kdet(C).
+    \end{align*} \qed
+\end{itemize}
 
 \begin{theorem}{4.5}
 If $A \in M_{n \times n}(\mathbb{F})$ and $B$ is obtained from $A$ by interchanging two rows, then $det(B) = -det(A)$.
