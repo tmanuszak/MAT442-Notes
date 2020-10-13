@@ -2222,6 +2222,27 @@ $$\left| \begin{array}{c}
 \end{array} \right|.$$
 \end{theorem}
 
+\textit{Proof.}
+Let $a_r = u + kv$. \begin{itemize}
+    \item[] (Base Case): Let $n = 1$. Then clearly, $det(A) = A_{11}$. 
+    
+    \item[] (Inductive Step): Let $n \geq 2$. \begin{itemize}
+        \item If $r = 1$, then $A_{1j} = u_j + kv_j$. Let $B$ and $C$ be matrices obtained from $A$ by replacing row $r$ by $u$ and $v$. Then $$det(\tilde{A}_{1j}) = det(\tilde{B}_{1j}) = det(\tilde{C}_{1j}).$$ Thus, \begin{align*}
+        det(A) &= \sum_{j = 1}^n(-1)^{1 + j}A_{1j}det(\tilde{A}_{1j}) \\
+        &= \sum_{j = 1}^n(-1)^{1 + j}(u_j + kv_j)det(\tilde{A}_{1j}) \\
+        &= \sum_{j = 1}^n(-1)^{1 + j}u_jdet(\tilde{B}_{1j}) + \sum_{j = 1}^n(-1)^{1 + j}kv_jdet(\tilde{C}_{1j}) \\
+        &= \sum_{j = 1}^n(-1)^{1 + j}B_{1j}det(\tilde{B}_{1j}) + k\sum_{j = 1}^n(-1)^{1 + j}C_{1j}det(\tilde{C}_{1j}) \\ 
+        &= det(B) + kdet(C).
+    \end{align*}
+    
+    \item If $r > 1$, then $\tilde{A}_{1j} = \tilde{B}_{1j} = \tilde{C}_{1j}$ are the same except row $r - 1$, which is $(u_1 + kv_1, \dots, u_{j-1} + kv_{j - 1}, u_{j + 1} + kv_{j + 1}, \dots, u_n + kv_n)$ in $A$, $(u_1, \dots, u_{j-1}, u_{j + 1}, \dots, u_n)$ in $B$, and $(v_1, \dots, v_{j - 1}, v_{j + 1}, \dots, v_n)$ in $C$. Therefore, by the inductive hypothesis $$det(\tilde{A}_{1j}) = det(\tilde{B}_{1j}) + k \cdot det(\tilde{C}_{1j}).$$ Thus, \begin{align*}
+        det(A) &= \sum_{j = 1}^n(-1)^{1+j}A_{1j}det(\tilde{A}_{1j}) \\
+        &= \sum_{j = 1}^n(-1)^{1+j}B_{1j}det(\tilde{B}_{1j}) + k \cdot \sum_{j = 1}^n(-1)^{1+j}C_{1j}det(\tilde{C}_{1j}) \\ &= det(A) + k \cdot det(C).
+    \end{align*}
+    \end{itemize}
+    Therefore, $$det(A) = det(B) + k \cdot det(C).$$\qed
+\end{itemize}
+
 \begin{corollary}{4}
 If $A$ has a row consisting of zeroes, then $det(A) = 0$.
 \end{corollary}
@@ -2231,30 +2252,55 @@ Let $B \in M_{n \times n}(\mathbb{F})$ and $n \geq 2$. Suppose that the $i$th ro
 \end{lemma}
 
 \begin{theorem}{4.4}
-For $A \in M_{n \times n}(\mathbb{F})$ and $i \in \{1, \dots, n\}$ $$det(A) = \sum_{j = 1}^n(-1)^{i + j}A_{ij}det(\tilde{A}_{ij}).$$
+For $A \in M_{n \times n}(\mathbb{F})$ and $i \in \{1, \dots, n\}$ and $n \geq 2$ $$det(A) = \sum_{j = 1}^n(-1)^{i + j}A_{ij}det(\tilde{A}_{ij}).$$
 \end{theorem}
+
+\begin{sol}
+Let $B_j$ denote the matrix obtained from $A$ by replacing the $i$th row with $e_j$. Then $$A = \sum_{j = 1}^nA_{ij}B_j.$$ Thus, \begin{align*}
+    det(A) &= \sum_{j = 1}^nA_{ij}det(B_j) \tag{By Theorem 4.3} \\
+    &= \sum_{j = 1}^nA_{ij}(-1)^{i + j}det(\tilde{A}_{ij}). \tag{By Lemma 5}
+\end{align*}
+\end{sol}
 
 \begin{corollary}{7}
 If $A \in M_{n \times n}(\mathbb{F})$ has two identical rows, then $det(A) = 0$.
 \end{corollary}
 
-\textit{Proof.}
-Let $a_r = u + kv$. \begin{itemize}
-    \item[] (Base Case): Let $n = 1$. Then clearly, $det(A) = 0$. 
+\begin{sol}
+Let $A \in M_{n \times n}(\mathbb{F})$. \begin{itemize}
+    \item[] (Base Case): Let $n = 2$. Then $\begin{pmatrix}
+    a & b \\ a & b
+    \end{pmatrix} = ab - ab = 0.$ 
     
-    \item[] (Inductive Step): Let $n \geq 2$. If $r = 1$, then $A_{1j} = u_j + kv_j$. Let $B$ and $C$ be matrices obtained from $A$ by replacing row $r$ by $u$ and $v$. Then $$det(\tilde{A}_{1j}) = det(\tilde{B}_{1j}) = det(\tilde{C}_{1j}).$$ Thus, \begin{align*}
-        det(A) &= \sum_{j = 1}^n(-1)^{1 + j}A_{1j}det(\tilde{A}_{1j}) \\
-        &= \sum_{j = 1}^n(-1)^{1 + j}B_{1j}det(\tilde{B}_{1j}) + \sum_{j = 1}^n(-1)^{1 + j}C_{1j}det(\tilde{C}_{1j}) \\ 
-        &= det(B) + kdet(C).
-    \end{align*} \qed
+    \item[] (Inductive Step): Let $n \geq 3$. Suppose rows $r$ and $s$ are identical. Let $i \in \{ 1, \dots, n \}$ such that $i \neq r$ and $i \neq s$. By Theorem 4.4, $$det(A) = \sum_{j = 1}^nA_{ij}(-1)^{i + j}det(\tilde{A}_{ij})$$ and $\tilde{A}_{ij}$ has two identical rows. So, by the inductive hypothesis, $det(\tilde{A}_{ij}) = 0$. Therefore, $det(A) = 0$.
 \end{itemize}
+\end{sol}
 
 \begin{theorem}{4.5}
 If $A \in M_{n \times n}(\mathbb{F})$ and $B$ is obtained from $A$ by interchanging two rows, then $det(B) = -det(A)$.
 \end{theorem}
 
-\begin{sol}
-Say rows $a_r$ and $a_s$ are interchanged. Play with the matrix that has rows $r$ and $s$ equal to $a_r + a_s$.
+\begin{sol} 
+Let $A \in M_{n \times n}(\mathbb{F})$. Suppose $B$ is obtained from $A$ by interchanging rows $r$ and $s$ with $r < s$, without loss of generality. Let $a_i$ denote the $i$th row of $A$. Then \begin{align*}
+    0 &= det\begin{pmatrix}
+    a_1 \\ \vdots \\ a_r + a_s \\ \vdots \\ a_r + a_s \\ \vdots \\ a_n
+    \end{pmatrix} \\ 
+    &= det\begin{pmatrix}
+    a_1 \\ \vdots \\ a_r \\ \vdots \\ a_r + a_s \\ \vdots \\ a_n
+    \end{pmatrix} + det\begin{pmatrix}
+    a_1 \\ \vdots \\ a_s \\ \vdots \\ a_r + a_s \\ \vdots \\ a_n
+    \end{pmatrix} \\
+    &= det\begin{pmatrix}
+    a_1 \\ \vdots \\ a_r \\ \vdots \\ a_r \\ \vdots \\ a_n
+    \end{pmatrix} + det\begin{pmatrix}
+    a_1 \\ \vdots \\ a_r \\ \vdots \\ a_s \\ \vdots \\ a_n
+    \end{pmatrix} + det\begin{pmatrix}
+    a_1 \\ \vdots \\ a_s \\ \vdots \\ a_r \\ \vdots \\ a_n
+    \end{pmatrix} + det\begin{pmatrix}
+    a_1 \\ \vdots \\ a_s \\ \vdots \\ a_s \\ \vdots \\ a_n
+    \end{pmatrix} \\
+    &= 0 + det(A) + det(B) + 0.
+\end{align*} Therefore, $det(B) = -det(A)$.
 \end{sol}
 
 \begin{theorem}{4.6}
@@ -2262,7 +2308,11 @@ If $A \in M_{n \times n}(\mathbb{F})$ and $B$ is obtained from $A$ by adding a m
 \end{theorem}
 
 \begin{sol}
-Use expansion formula from Theorem 4.4.
+Let $A \in M_{n \times n}(\mathbb{F})$. Let $B$ be obtained from $A$ by adding $ka_r$ to $a_s$. Let $C$ be obtained from $A$ by replacing row $s$ with $a_r$. Then $C = \begin{pmatrix}
+a_1 \\ \vdots \\ a_r \\ \vdots \\ a_r \\ \vdots \\ a_n
+\end{pmatrix}$ and so, $det(C) = 0$. In addition, row $s$ of $B$ is equal to row $s$ of $A$ plus $k$ times row $s$ of $C$. Thus, \begin{align*}
+    det(B) &= det(A) + kdet(C) \\ &= det(A).
+\end{align*}
 \end{sol}
 
 \begin{corollary}{10}
@@ -2270,8 +2320,20 @@ If $A \in M_{n \times n}(\mathbb{F})$ and $rank(A) < n$, then $det(A) = 0$.
 \end{corollary}
 
 \begin{sol}
-Rows of $A$ are linearly dependent so say $a_1 = \sum_{i \geq 2}c_ia_i$. Use Theorem 4.6.
+Let $A \in M_{n \times n}(\mathbb{F})$ and $rank(A) < n$. Then the dimension of the row space of $A$ is less than $n$. Thus, the rows of $A$ are linearly dependent. Therefore, for some $r \in \{ 1, \dots, n \}$, $a_r = \sum_{j \neq r}c_ja_j$ for some $c_j \in \mathbb{F}$. For every $j \neq r$, if $c_j \neq 0$, then adding $-c_ja_j$ to row $r$ results in the zero vector. Therefore, $det(A) = 0$.
 \end{sol}
+
+\vspace{1em}
+
+\noindent\textbf{Example:} \begin{align*}
+    \left| \begin{array}{cccc}
+         0 & 2 & 1 & 5 \\ 1 & 5 & 0 & 6 \\ 0 & 0 & 4 & 0 \\ 0 & 0 & 0 & -2
+    \end{array} \right| &\xrightarrow{\text{row op.}} - \left| \begin{array}{cccc}
+         1 & 5 & 0 & 6 \\ 0 & 2 & 1 & 5 \\ 0 & 0 & 4 & 0 \\ 0 & 0 & 0 & -2
+    \end{array} \right| \\ 
+    &= -1 \cdot 2 \cdot 4 \cdot (-2) \\ 
+    &= 16.
+\end{align*}
 
 \subsection{Properties}
 
