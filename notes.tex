@@ -2342,11 +2342,59 @@ Let $A \in M_{n \times n}(\mathbb{F})$ and $rank(A) < n$. Then the dimension of 
 \begin{itemize}
     \item Let $A, B \in M_{n \times n}(\mathbb{F})$. Then $det(AB) = det(A)det(B)$. 
     
+    \begin{sol}
+    Let $A, B \in M_{n \times n}(\mathbb{F})$. \begin{itemize}
+        \item[(1)] We will show this is the case when $A$ is an elementary matrix. \begin{itemize}
+            \item If $A$ is of Type I (interchange), then $det(A) = - det(I) = -1$ and by Theorem 4.5, $det(AB) = - det(B)$. 
+            \item If $A$ is Type II (multiply by $k$), then $det(A) = k$ and $det(AB) = kdet(B)$.
+            \item If $A$ is of type III (adding), then $det(A) = 1$ and $det(AB) = det(B)$.
+        \end{itemize}
+        So, the fact holds when $A$ is an elementary matrix.
+        
+        \item[(2)] If $rank(A) < n$, then by Corollary 10, $det(A) = 0$. In addition, $rank(AB) \leq rank(A) < n$. Thus, $det(A) = 0$.
+        
+        \item[(3)] If $rank(A) = n$, then $A$ is invertible and a product of elementary matrices. Say $A = E_1 E_2 \dots E_m$ where $E_i$ are elementary matrices. Then \begin{align*}
+            det(AB) &= det(E_1 \dots E_m \cdot B) \\
+            &= det(E_1) det(E_2  \dots  E_m \cdot B) \\
+            &\vdots \\
+            &= det(E_1)det(E_2)\dots det(E_m)det(B) \\
+            &= det(E_1 \dots E_m)det(B) \\
+            &= det(A)det(B).
+        \end{align*} 
+    \end{itemize}
+    \end{sol}
+    
     \item $A \in M_{n \times n}(\mathbb{F})$ is invertible if and only if $det(A) \neq 0$ and $det(A^{-1}) = \frac{1}{det(A)}$.
+    
+    \begin{sol}
+    \begin{itemize}
+        \item[$\Longrightarrow$] If $A$ is not invertible, then $rank(A) < n$ and so $det(A) = 0$.
+        
+        \item[$\Longleftarrow$] If $A$ is invertible, then $A \cdot A^{-1} = I_n$. Thus, by the fact above, $1 = det(I_n) = det(A)det(A^{-1})$. So, $det(A) \neq 0$.
+    \end{itemize}
+    \end{sol}
     
     \item Let $A \in M_{n \times n}(\mathbb{F})$. Then $det(A^t) = det(A)$.
     
+    \begin{sol}
+    \begin{itemize}
+        \item[(1)] If $A$ is not invertible, then $rank(A) < n$ and $det(A) = 0$. Also, $rank(A^t) = rank(A) < n$. Thus, $det(A^t) = 0$. 
+        \item[(2)] If $A$ is invertible, then $A$ is a product of elementary matrices, say $A = E_1E_2 \dots E_m$. Then $A^t = (E_1 \dots E_m)^t = E_m^t \dots E_1^t$. Thus, \begin{align*}
+            det(A^t) &= det(E_m^t) \dots det(E_1^t) \\
+            &= det(E_m) \dots det(E_1) \\
+            &= det(E_1) \dots det(E_m) \\
+            &= det(A).
+        \end{align*}
+    \end{itemize}
+    \end{sol}
+    
     \item (Cramer's Rule) Let $Ax = b$ where $A \in M_{n \times n}(\mathbb{F})$ and let $M_k$ be the $n \times n$ matrix obtained from $A$ by replacing column $k$ with $b$. Then $x_k = \frac{det(M_k)}{det(A)}$.
+    
+    \begin{sol}
+    Let $A \in M_{n \times n}(\mathbb{F})$ be nonzero. Thus, $A$ is invertible, and so, $Ax = b$ has a unique solution. Fix $k$. Let $X$ be obtained from $I_n$ by replacing the $k$th column with $x$. Then the $i$th column of $AX$ is $Ae_i = a_i$ if $i \neq k$ and $Ax = b$ if $i = k$. Therefore $AX = M_k$ and so \begin{align*}
+        det(A)det(X) &= det(AX) \\ det(M_k).
+    \end{align*} So, $det(X) = x_k$. Therefore, $x_k = \frac{det(M_k)}{det(A)}$.
+    \end{sol}
 \end{itemize}
 
 \section{Diagonalization}
