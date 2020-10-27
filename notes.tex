@@ -631,7 +631,7 @@ Let $T : V \to W$ be linear and let $\beta = \{v_1, \dots, v_n\}$ be a basis for
 \end{itemize}
 
 \begin{theorem}{2.3}
-(Dimension Theorem) Let $T : V \to W$ be linear. If $V$ is finite-dimensional, then $$nullity(T) + rank(T) = dim(T).$$
+(Dimension Theorem) Let $T : V \to W$ be linear. If $V$ is finite-dimensional, then $$nullity(T) + rank(T) = dim(V).$$
 \end{theorem}
 
 \textit{Proof.} (Outline)
@@ -2412,22 +2412,108 @@ A non-zero vector $v \in V$ such that $T(v) = \lambda v$ for some $\lambda \in \
 \end{definition}
 
 \begin{theorem}{5.1}
-Let $V$ be finite-dimensional. A linear operator on $V$ is diagonalizable if and only if there is an ordered basis $\beta$ for $V$ consisting of eigenvectors.
+Let $V$ be finite-dimensional. A linear operator on $V$ is diagonalizable if and only if there is an ordered basis $\beta$ for $V$ consisting of eigenvectors of $T$.
 \end{theorem}
+
+\begin{sol}
+\begin{itemize}
+    \item[$\Longrightarrow$] Suppose $T$ is diagonalizable. Then there exists an ordered basis $\beta = \{v_1, \dots, v_n\}$ for $V$ such that $\begin{bmatrix}
+T
+\end{bmatrix}_\beta = D$ where $D = \begin{bmatrix}
+D_{ij}
+\end{bmatrix}$ and $D_{ij} = 0$ if $i \neq j$. Then $$T(v_j) = \sum_{i = 1}^nD_{ij}v_i = D_{ij}v_i.$$ Thus, $v_j$ is an eigenvector of $T$ since $v_j \neq 0$. 
+\item[$\Longleftarrow$] Suppose $\beta = \{v_1, \dots, v_n\}$ is a basis for $V$ consisting of eigenvectors of $T$, say $T(v_j) = \lambda_j v_j$. Then $\begin{bmatrix}
+T
+\end{bmatrix}_\beta = D = [D_{ij}]$ where $$D_{ij} =
+        \begin{cases} 
+            \lambda_j & i = j \\
+            0 & i \neq j.
+        \end{cases}$$ Thus, $D$ is diagonal.
+\end{itemize}
+\end{sol}
 
 \begin{theorem}{5.2}
 Let $A \in M_{n \times n}(\mathbb{F})$. Then $\lambda \in \mathbb{F}$ is an eigenvalue of $A$ if and only if $det(A - \lambda I_n) = 0$.
 \end{theorem}
 
+\begin{sol}
+\begin{align*}
+    \lambda \text{ is an eigenvalue of $A$} &\Longleftrightarrow \exists v \neq 0 \text{ such that }
+Av - \lambda v = 0 \\ 
+&\Longleftrightarrow \exists v \neq 0 \text{ such that }
+(A - \lambda I_n)v = 0 \\
+&\Longleftrightarrow \exists v \neq 0 \text{ such that }
+v \in N(A - \lambda I_n) \\
+&\Longleftrightarrow A - \lambda I_n \text{ is not invertible} \\
+&\Longleftrightarrow det(A - \lambda I_n) = 0
+\end{align*}
+\end{sol}
+
+\noindent\textbf{Example:} Let $C^\infty(\mathbb{R}) = \{f : \mathbb{R} \to \mathbb{R} : f^{(n)} \text{ exists for every }n \in \mathbb{Z}^+\}$. Then $C^\infty(\mathbb{R})$ is a subspace of $\mathcal{F}(\mathbb{R}, \mathbb{R})$. Let $T : C^\infty(\mathbb{R}) \to C^\infty(\mathbb{R})$, $T(f) = f'$. Find all eigen values of $T$. 
+
+\textit{Solution.} We know $f$ is an eigenvector if $f \neq 0$ and $Tf = \lambda f$ for some $\lambda \in \mathbb{R}$. So, $f' = \lambda f$ implies $\frac{df}{dx} = \lambda f$ implies $\frac{df}{f} = \lambda dx$ implies $ln(f) = \lambda x + C$ implies $| f | = e^{\lambda x + C}$ implies $f(x) = Le^{\lambda x}$ for some $L \in \mathbb{R}$ and $L \neq 0$. All $\lambda \in \mathbb{R}$ are eigenvalues. 
+
+\noindent\textbf{Example:} Let $T : M_{2 \times 2}(\mathbb{R}) \to M_{2 \times 2}(\mathbb{R})$ be defined by $T(A) = A^T$. Is $T$ diagonalizable?
+
+\textit{Solution.} Let $\alpha = \left\{ \begin{pmatrix}
+1 & 0 \\ 0 & 0
+\end{pmatrix}, \begin{pmatrix}
+0 & 1 \\ 0 & 0
+\end{pmatrix}, \begin{pmatrix}
+0 & 0 \\ 1 & 0
+\end{pmatrix}, \begin{pmatrix}
+0 & 0 \\ 0 & 1
+\end{pmatrix} \right\} = \{e_1, e_2, e_3, e_4\}$. So, $$\begin{bmatrix}
+T
+\end{bmatrix}_\alpha = \begin{pmatrix}
+1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1
+\end{pmatrix}$$ is not diagonalizable. We need to find the eigenvalues of $T$. If $\lambda$ is an eigenvalue, then $T(A) = \lambda A$ for some $A \neq 0$. Then, $T^2(A) = T(T(A)) = \lambda^2A$. Thus, $\lambda^2A = A \neq 0$. So, $\lambda = \pm 1$.
+\begin{itemize}
+    \item[($\lambda = 1$):] Then $T(A) = A$ and $T(A) = A^T$. Thus, $A = A^T$ is a symmetric matrix. Let $\left\{ \begin{pmatrix}
+    1 & 0 \\ 0 & 0
+    \end{pmatrix}, \begin{pmatrix}
+    0 & 0 \\ 0 & 1
+    \end{pmatrix}, \begin{pmatrix}
+    0 & 1 \\ 1 & 0
+    \end{pmatrix} \right\} = \{f_1, f_2, f_3\}$. 
+    
+    \item[($\lambda = -1$):] Then $T(A) = -A$ and $T(A) = A^T$. So, $A^T = -A$ is a skew-symmetric matrix. Let $\left\{ \begin{pmatrix}
+    0 & 1 \\ -1 & 0
+    \end{pmatrix} \right\} = \{f_4\}$.
+\end{itemize}
+Then $\beta = \{f_1, f_2, f_3, f_4\}$ is a basis of eigenvectors of $T$. Then $T(f_1) = f_1,$, $T(f_2) = f_2$, $T(f_3) = f_3$, and $T(f_4) = f_4$ implies $$\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\end{pmatrix}.$$
+
 \begin{definition}{3} \text{ }
 \begin{itemize}
-    \item Let $A \in M_{n \times n}(\mathbb{F})$. Then $f(t) = det(A - \lambda I_n)$ is called the \textit{characteristic polynomial} of $A$.
+    \item Let $A \in M_{n \times n}(\mathbb{F})$. Then $f(t) = det(A - t I_n)$ is called the \textit{characteristic polynomial} of $A$.
     
     \item If $T$ is a linear operator $V$, then the characteristic polynomial of $T$ is the characteristic polynomial of $A = \begin{bmatrix} T \end{bmatrix}_\beta$ where $\beta$ is an ordered basis for $V$.
 \end{itemize}
 \end{definition}
 
 \noindent\textbf{Note:} The characteristic polynomial of $T$ is well-defined.
+
+\begin{sol}
+Let $\beta$ and $\alpha$ be ordered bases for $V$. Then $f_T(t) = det(\begin{bmatrix}
+T
+\end{bmatrix}_\beta - tI) = det(\begin{bmatrix}
+T
+\end{bmatrix}_\alpha - tI)$. Let $B = \begin{bmatrix}
+T
+\end{bmatrix}_\beta$ and $A = \begin{bmatrix}
+T
+\end{bmatrix}_\alpha$. Then there exists $Q$ invertible such that $B = Q^{-1}AQ$. So, \begin{align*}
+    det(B - tI) &= det(Q^{-1}AQ - tI) \\
+    &= det(Q^{-1}(A - tI)Q) \\
+    &= det(Q^{-1})det(A-tI)det(Q) \\
+    &= det(A-tI).
+\end{align*}
+\end{sol}
 
 \begin{theorem}{5.3}
 Let $A \in M_{n \times n}(\mathbb{F})$.
