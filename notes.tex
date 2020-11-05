@@ -2681,16 +2681,38 @@ T
     f_T(t) &= f_A(t) \\
     &= \left|\begin{array}{cc}
         (\lambda - t)I_k & B \\
-        0 & C
+        0 & C-tI_{n-k}
     \end{array}\right| \\
     &= det((\lambda - t)I_k)det(C - tI_{n-k}) \tag{By Lemma 8} \\
     &= (-1)^k(t - \lambda)^kg(t).
 \end{align*} Thus, $(t - \lambda)^k | f_T(t)$ and $k \leq m$.
 \end{sol}
 
+\vspace{1em}
+
+\noindent\textbf{Example:} Let $T : P_3(\mathbb{R}) \to P_3(\mathbb{R})$ be defined as $T(f) = f'$. Is $T$ diagonalizable?
+
+\textit{Solution.} Let $\beta = \{1, x, x^2, x^3\}$ be a basis for $P_3(\mathbb{R})$. Then $$\begin{bmatrix}
+T
+\end{bmatrix}_\beta = \begin{pmatrix}
+0 & 1 & 0 & 0 \\ 0 & 0 & 2 & 0 \\ 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0
+\end{pmatrix}.$$ Thus, $$f_T(t) = \left| \begin{array}{cccc}
+     -t & 1 & 0 & 0 \\ 0 & -t & 2 & 0 \\ 0 & 0 & -t & 3 \\ 0 & 0 & 0 & -t
+\end{array} \right| = t^4.$$ So, there is only one eigenvalue, $\lambda = 0$.
+Thus, \begin{align*}
+    E_0 &= N(T - 0I) \\
+    &= \{f : Tf = 0\} \\
+    &= \{f : f' = 0\} \\
+    &= P_0(\mathbb{R)}.
+\end{align*} Thus, $dim(E_0) = 1$. Therefore, it is not possible to find a basis consisting of eigenvectors.
+
 \begin{lemma}{9}
 Let $\lambda_1, \dots, \lambda_k$ be distinct eigenvalues of $T$ and let $v_i \in E_{\lambda_i}$. If $v_1 + \dots + v_k = 0$, then $v_i = 0$ for every $i$.
 \end{lemma}
+
+\begin{sol}
+Renumerate $v_1, \dots, v_k$ so that for some $m$, $v_i = 0$ for $i > m$ and $v \neq 0$ for $i \leq m$. Then $v_1 + \dots + v_m = 0$ but, $v_1, \dots, v_m$ are linearly independent. Therefore, $m = 0$.
+\end{sol}
 
 \begin{theorem}{5.8}
 Let $\lambda_1, \dots, \lambda_k$ be distinct eigenvalues of $T$ and let $S_i \subseteq E_{\lambda_i}$ be finite and linearly independent. Then $S_1 \cup \dots \cup S_k$ is linearly independent.
@@ -2698,6 +2720,10 @@ Let $\lambda_1, \dots, \lambda_k$ be distinct eigenvalues of $T$ and let $S_i \s
 
 \textit{Proof.} (Outline)
 Say $S_i = \{v_{i_1}, \dots, v_{i_{n_i}}\}$ and suppose $\sum_{i = 1}^k\sum_{j = 1}^{n_i}a_{ij}v_{i_j} = 0$. Consider $w_i = \sum_{j = 1}^{n_i}a_{ij}v_{i_j}$.
+
+\begin{sol}
+Suppose $S_i = \{v_{i1}, v_{i2}, \dots, v_{in_i}\}$ and $|S_i| = n_i$. Suppose $\sum_{i = 1}^k \sum_{j = 1}^{n_i} a_{ij}v_{ij} = 0$. Let $w_i = \sum_{j = 1}^{n_i}a_{ij}v_{ij}$. Then $w_i \in E_{\lambda_i}$ and we have $w_1 + \dots + w_k = 0$. By Lemma 9, $w_i = 0$ for every $i = 1, \dots, k$. Thus, $\sum_{j = 1}^{n_i} a_{ij}v_{ij} = 0$. Since $S_i$ is linearly independent, $a_{ij} = 0$ for all $i$ and $j$.
+\end{sol}
 
 \begin{theorem}{5.9}
 Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that the characteristic polynomial of $T$ splits. Let $\lambda_1, \dots, \lambda_k$ be distinct eigenvalues of $T$. Then
@@ -2718,11 +2744,53 @@ Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that 
     \item ($\Longleftarrow$): Let $\beta_i$ be an ordered basis for $E_{\lambda_i}$; let $\beta = \beta_1 \cup \dots \cup \beta_k$. Then $\beta$ is a basis for $V$ consisting of eigenvectors.
 \end{itemize}
 
+\begin{sol}
+Let $\lambda_1, \dots, \lambda_k$ be distince eigenvalues. Let $m_i$ denote the multiplicity of $\lambda_i$. Let $n = dim(V)$. Let $d_i = dim(E_{\lambda_i})$. Then $d_i \leq m_i$ by Theorem 5.7. Note, $m_1 + \dots + m_k = n$.
+
+\begin{itemize}
+    \item[$\Longrightarrow$] Suppose $T$ is diagonalizable. Then there exists a basis $\beta$ consisting of eigenvectors. Let $\beta_i = \beta \cap E_{\lambda_i}$. Then $\beta_i$ is linearly independent and so $\left| \beta_i \right| \leq d_i$. In addition, \begin{align*}
+        n &= |\beta| \\
+        &= \sum_{i = 1}^k \left| \beta_i \right| \\
+        &\leq \sum_{i = 1}^k d_i \\
+        &\leq \sum_{i = 1}^k m_i. \tag{By Theorem 5.7}
+    \end{align*} Thus, $m_i = d_i$ for all $i$. 
+    
+    \item[$\Longleftarrow$] Suppose $m_i = d_i$ for all $i$. Let $\beta_i$ be a basis for $E_{\lambda_i}$. Thus, $\left| \beta_i \right| = d_i$. Let $\beta = \cup_{i = 1}^k \beta_i$. Thus, $\beta$ is linearly independent. In addition, \begin{align*}
+        | \beta | &= \sum_{i = 1}^k \left| \beta_i \right| \\
+        &= \sum_{i = 1}^k d_i \\
+        &= \sum_{i = 1}^k m_i \\
+        &= n \\
+        &= dim(V).
+    \end{align*} Thus, $\beta$ is a basis for $V$.
+\end{itemize}
+\end{sol}
+
 \noindent \textbf{Note:} $T$ is diagonalizable if and only if 
 \begin{itemize}
     \item The characteristic polynomial splits and
     \item the multiplicity of $\lambda_i$ is $nullity(T - \lambda_iI) = n - rank(T - \lambda_iI)$.
 \end{itemize}
+
+\noindent\textbf{Example:} Test if $A = \begin{pmatrix}
+     3 & 1 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 4
+\end{pmatrix}$ is diagonalizable over $\mathbb{R}$. 
+
+\textit{Solution.}
+\begin{itemize}
+    \item We know $f_A(t) = \left| \begin{array}{ccc}
+     3-t & 1 & 0 \\ 0 & 3-t & 0 \\ 0 & 0 & 4-t
+    \end{array} \right| = (3-t)^2(4-t)$ splits.
+    
+    \item For $\lambda_1 = 4$, we have $rank(A - \lambda_1I) = rank\left( \begin{pmatrix}
+    -1 & 1 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 0
+    \end{pmatrix} \right) = 2$ and multiplicity of $\lambda_1 = 1$ and $3 - rank(A - \lambda_1I) = 3 - 2 = 1$. 
+    
+    \item For $\lambda_2 = 3$, we have $rank(A - \lambda_2I) = rank\left( \begin{pmatrix}
+    0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1
+    \end{pmatrix} \right) = 2$ and multiplicity of $\lambda_2 = 2$ and $3 - 2 = 1$. 
+\end{itemize}
+So, $A$ is not diagonalizable.
+ 
 
 \setcounter{subsection}{3}
 
@@ -2732,15 +2800,37 @@ Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that 
 \begin{itemize}
     \item Let $T : V \to V$. A subspace $W \subseteq V$ is called a $T$-invariant subspace of $V$ if $T(W) \subseteq W$.
     
+    \textbf{Examples:}
+    \begin{itemize}
+        \item $\{0\}$
+        \item $N(T)$: if $x \in N(T)$, then $T(x) = 0$.
+        
+        \item $R(T)$: if $y \in R(T)$, then $y \in V$ and so, $T(y) \in R(T)$.
+    \end{itemize}
+    
     \item The $T$-cycle subspace of $V$ generated by $x$ is $$span(\{x, T(x), T^2(x), \dots\}).$$
 \end{itemize}
 \end{definition}
 
 \textbf{Note:} $T$-cyclic subspace is a minimal subspaces which is $T$-invariant and contains $x$.
 
+\textbf{Note:} If $W$ is $T-invariant$ and $v \in W$, then $T^i(v) \in W$ for all $i \in \mathbb{Z}^*$ and $W$ contains a $T$-cyclic subspace generated by $x$.
+
+\textbf{Notation:} If $W$ is $T$-invariant, then $T_W = \restr{T}{W} : W \to W$.
+
 \begin{theorem}{5.21}
 Let $T$ be a linear operator on a finite-dimensional vector space $V$ and let $W$ be a $T$-invariant subspace of $V$. Then the characteristic polynomial of the restriction of $T$ to $W$, $T_W$, divides the characteristic polynomial of $T$. 
 \end{theorem}
+
+\begin{sol}
+Let $\alpha = \{v_1, \dots, v_k\}$ be a basis for $W$ and extend it to a basis $\beta = \{v_1, \dots, v_n\}$ for $V$. Then $$\begin{bmatrix}
+T
+\end{bmatrix}_\beta = \begin{pmatrix}
+B_1 & B_2 \\ 0 & B_3
+\end{pmatrix}$$ for some $B_1 \in M_{k \times k}(\mathbb{F})$ and $\begin{bmatrix}
+T_W
+\end{bmatrix} = B_1$. Therefore, $f_T(t) = f_{T_W}(t)g(t)$ and so, $f_{T_W}(t) | f_T(t)$.
+\end{sol}
 
 \begin{theorem}{5.22}
 Let $T$ be a linear operator on a vector space $V$ of dimension $n$ and let $W$ be a $T$-cyclic subspace of $V$ generated by a non-zero vector $v$ of dimension $k$. Then
@@ -2778,6 +2868,19 @@ Note that $f(T)$ is a linear operator. We will show $f(T)(v) = 0$ for every $v$.
 \begin{corollary}{15}
 Let $A$ be an $n \times n$ matrix and let $f(t)$ be its characteristic polynomial. Then $f(A) = 0_n$, the $n \times n$ zero matrix.
 \end{corollary}
+
+\textbf{Example:} Let $A = \begin{pmatrix}
+2 & 1 \\ 0 & 1
+\end{pmatrix}$. Then $f_A(t) = \left| \begin{array}{cc}
+    2-t & 1 \\
+    0 & 1-t
+\end{array} \right| = (t-1)(t-2) = t^2 - 3t + 2$. Thus, $f(A) = \begin{pmatrix}
+2 & 1 \\ 0 & 1
+\end{pmatrix}^2 - 3 \begin{pmatrix}
+2 & 1 \\ 0 & 1
+\end{pmatrix} + 2 \begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix}$.
 
 \section{Inner product spaces}
 
