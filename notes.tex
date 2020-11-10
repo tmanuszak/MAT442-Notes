@@ -2929,20 +2929,59 @@ Let $A$ be an $n \times n$ matrix and let $f(t)$ be its characteristic polynomia
 \subsection{Inner products and norms}
 
 \begin{definition}{1}
-Let $V$ be a vector space over $F$ . An \textit{inner product} on $V$ is a function $\langle \cdot, \cdot \rangle : V \times V \to \mathbb{F}$ such that the following conditions hold. 
+Let $V$ be a vector space over $\mathbb{F}$ . An \textit{inner product} on $V$ is a function $\langle \cdot, \cdot \rangle : V \times V \to \mathbb{F}$ such that the following conditions hold. 
 \begin{itemize}
     \item $\langle x + z, y \rangle = \langle x, y \rangle + \langle z,y \rangle$
     
     \item $\langle cx, y \rangle = c\langle x, y \rangle$
     
-    \item $\overline{\langle x, y \rangle} = \langle x, y \rangle$
+    \item $\overline{\langle x, y \rangle} = \langle y, x \rangle$
     
     \item $\langle x, x \rangle > 0$ if $x \neq 0$ and $\langle 0, 0 \rangle = 0$.
 \end{itemize}
 \end{definition}
 
+\noindent\textbf{Examples:}
+\begin{itemize}
+    \item Let $x = (a_1, \dots, a_n)$, $y = (b_1, \dots, b_n) \in \mathbb{F}^n$. Then $\langle x, y \rangle = \sum_{i = 1}^na_i\overline{b_i}$ is called the standard inner product.
+    
+    \item For $V = C[0,1] = \{f : [0,1] \to \mathbb{R} : f \text{ is continuous}\}$, $\langle f, g \rangle = \int_0^1f(t)g(t)dt$ is an inner product on $V$. 
+    
+    \item (Frobenius inner product)
+    
+    Let $V = M_{n \times n}(\mathbb{F})$. For $A, B \in V$, let $\langle A, B \rangle = tr(B^*A)$ where $B^*$ is the adjoint of $B$. The four properties of an inner product are satisfied on $V$ as follows:
+    
+    \begin{itemize}
+    \item[(1)] \begin{align*}
+        \langle A_1 + A_2, B \rangle &= tr(B^*(A_1 + A_2)) \\
+        &= tr(B^*A_1 + B^*A_2) \\
+        &= tr(B^*A_1) + tr(B^*A_2) \\
+        &= \langle A_1, B \rangle + \langle A_2, B \rangle
+    \end{align*}
+    
+        \item[(2)] \begin{align*}
+            \langle cA, B \rangle &= tr(B^*cA) \\
+            &= c \cdot tr(B^*A) \\
+            &= c \langle A, B \rangle
+        \end{align*}
+        
+        \item[(3)] \begin{align*}
+            \overline{\langle A, B \rangle} &= \overline{tr(B^*A)} \\
+            &= tr(A^*) \\
+            &= \langle B, A \rangle
+        \end{align*}
+        
+        \item[(4)] \begin{align*}
+            \langle A, A \rangle &= tr(A^*A) \\
+            &= \sum_{i = 1}^n\sum_{j = 1}^n\overline{A_{ji}}A_{ji} \\
+            &= \sum_{i,j = 1}^n \left| A_{ji} \right|^2 \\
+            &> 0 \tag{When $A \neq 0$}
+        \end{align*}
+    \end{itemize}
+\end{itemize}
+
 \begin{definition}{2}
-The \textit{adjoint} of an $m \times n$ matrix $X$ is the $n \times m$ matrix $A^*$ such that $(A^*)_{ij} = \overline{A_{ji}}$.
+The \textit{adjoint} of an $m \times n$ matrix $A$ is the $n \times m$ matrix $A^*$ such that $(A^*)_{ij} = \overline{A_{ji}}$.
 \end{definition}
 
 \begin{theorem}{6.1} \text{ }
@@ -2985,6 +3024,25 @@ Let $V$ be an inner product space over $F$. For $x,y \in V$ and $c \in \mathbb{F
     \item[(d)] Note that $\langle x, y \rangle + \langle y, x \rangle = 2Re\langle x, y \rangle$ and $Re\langle x, y \rangle \leq \lvert \langle x, y \rangle \rvert$.
 \end{itemize}
 
+\begin{sol}
+\begin{itemize}
+    \item[(c)] Note, the inequality holds if $y = 0$. Suppose $y \neq 0$. Let $c \in \mathbb{F}$. Then $$0 \leq \langle x-cy, x-cy \rangle = \langle x, x \rangle - c \langle y, x \rangle - \overline{c} \langle x, y \rangle + c \overline{c} \langle y, y \rangle.$$ Let $c = \frac{\langle x, y \rangle}{\langle y, y \rangle}$. Then \begin{align*}
+    0 &\leq \langle x, x \rangle - \frac{\langle x, y \rangle \langle y, x \rangle}{\langle y, y \rangle} \\
+    &= \lVert x \rVert^2 - \frac{\left| \langle x, y \rangle \right|^2}{\lVert y \rVert^2}.
+\end{align*} Thus, $\left| \langle x, y \rangle \right|^2 \leq \lVert x \rVert^2 \lVert y \rVert^2$.
+
+\item[(d)] \begin{align*}
+    \lVert x+y \rVert^2 &= \langle x+y, x+y \rangle \\
+    &= \langle x, x \rangle + \langle y, x \rangle + \langle x, y \rangle + \langle y, y \rangle \\
+    &= \langle x, x \rangle + 2Re \langle x, y \rangle + \langle y, y \rangle \\
+    &\leq \lVert x \rVert^2 + 2 \left| \langle x, y \rangle \right| + \lVert y \rVert^2 \\
+    &= \lVert x \rVert^2 + 2 \lVert x \rVert \lVert y \rVert + \lVert y \rVert^2 \tag{By Cauchy-Schwartz} \\
+    &= (\lVert x \rVert + \lVert y \rVert)^2.
+\end{align*}
+\end{itemize}
+
+\end{sol}
+
 \begin{definition}{4} \textit{ }
 \begin{itemize}
     \item Vectors $x,y \in V$ are called \textit{orthogonal} if $\langle x, y \rangle = 0$.
@@ -2995,7 +3053,32 @@ Let $V$ be an inner product space over $F$. For $x,y \in V$ and $c \in \mathbb{F
 \end{itemize}
 \end{definition}
 
-\textbf{Old Town Problem:} There are $n$ people living in an odd town and they form clubs. A club must contain an odd number of members and for any two distinct clubs there must be an even (possibly zero) number of people in both of them. What is the maximum number of clubs that can be formed?
+\noindent\textbf{Example:} Let $H = \{f : [0,2\pi] \to \mathbb{C}\}$. Let $\langle f, g \rangle = \frac{1}{2\pi} \int_0^{2\pi}f(t)\overline{g(t)}dt$. Let $f_n(t) = e^{int} = \cos(nt) + i\sin(nt)$. Then $S = \{ f_n(t) : n \in \mathbb{N}\}$ is orthonormal.
+
+\begin{sol}
+If $n \neq m$, then \begin{align*}
+    \langle f_n, f_m \rangle &= \frac{1}{2\pi} \int_0^{2\pi}e^{int}\overline{e^{imt}}dt \\
+    &= \frac{1}{2\pi} \int_0^{2\pi}e^{int}e^{-imt}dt \\
+    &= \frac{1}{2\pi} \int_0^{2\pi}e^{it(n-m)}dt \\
+    &= \frac{1}{2\pi} \int_0^{2\pi} \cos(t(n-m)) + i\sin(t(n-m))dt \\
+    &= \frac{1}{2\pi} \big[ \sin(t(n-m)) - \cos(t(n-m)) \big]_0^{2\pi} \\
+    &= 0.
+\end{align*} If $n = m$, then $$\langle f_n, f_n \rangle = \frac{1}{2\pi} \int_0^{2\pi} e^{int}e^{-int}dt = 1.$$
+\end{sol}
+
+\vspace{1em}
+
+\textbf{Odd Town Problem:} There are $n$ people living in an odd town and they form clubs. A club must contain an odd number of members and for any two distinct clubs there must be an even (possibly zero) number of people in both of them. What is the maximum number of clubs that can be formed?
+
+\begin{sol}
+Let $S_1, \dots, S_m$ denote these clubs. Let $v_i = \begin{pmatrix}
+v_{i1} \\ \vdots \\ v_{in}
+\end{pmatrix}$ when $v_{ij} = 
+        \begin{cases} 
+            1 & j \in S_i \\
+            0 & \text{else}
+        \end{cases}$. Then $v_i \in \mathbb{F}_2^n$. Then $v_1, \dots, v_m$ are linearly independent. Suppose $\sum_{i = 1}^m c_iv_i = 0$. Then $$0 = \left\langle \sum_{i = 1}^mc_iv_i, v_j \right\rangle = \sum_{i = 1}^m c_i \langle v_i, v_j \rangle = c_i.$$ Then, $m \leq dim(\mathbb{F}^n) = n$. Therefore, the number of clubs is at most $n$.
+\end{sol}
 
 \subsection{The Gram-Schmidt orthogonalization}
 
@@ -3007,9 +3090,17 @@ An ordered basis which is orthonormal is called an \textit{orthonormal basis}.
 Suppose $S = \{v_1, \dots, v_k\}$ is an orthogonal subset of $V$ such that $v_i \neq 0$. For $y \in span(S)$, $$y = \sum_{i = 1}^k\frac{\langle y, v_i \rangle}{\lVert v_i \rVert^2}v_i.$$
 \end{theorem}
 
+\begin{sol}
+Let $y \in span(S)$. Then $y = \sum_{i = 1}^k a_iv_i$ and so $\langle y, v_j \rangle = \sum_{i = 1}^k a_k \langle v_i, v_j \rangle = a_j \langle v_j, v_j \rangle$. Thus, $a_j = \frac{\langle y, v_i \rangle}{\langle v_j, v_j \rangle} = \frac{\langle y, v_j \rangle}{\lVert v_j \rVert^2}$.
+\end{sol}
+
 \begin{corollary}{4}
 Any orthogonal set of non-zero vectors is linearly independent.
 \end{corollary}
+
+\begin{sol}
+Suppose $\sum_{i = 1}^ka_iv_i = 0$. Then $a_i = \frac{\langle 0, v_i \rangle}{\lVert v_i \rVert^2} = 0$ by Theorem 6.3.
+\end{sol}
 
 \begin{theorem}{6.4 (Graham-Schmidt algorithm)} Let $S = \{w_1, \dots, w_n\}$ be a linearly independent subset. Define $S' = \{v_1, \dots, v_n\}$ as follows, $v_1 \coloneqq w_1$ and for $k \geq 2$ $$v_k = w_k - \sum_{j = 1}^{k-1}\frac{\langle w_k, v_j \rangle}{\lVert v_j \rVert^2}v_j.$$ Then $S'$ is orthogonal and $span(S') = span(S)$.
 \end{theorem}
