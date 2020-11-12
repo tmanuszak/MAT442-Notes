@@ -3106,7 +3106,40 @@ Suppose $\sum_{i = 1}^ka_iv_i = 0$. Then $a_i = \frac{\langle 0, v_i \rangle}{\l
 \end{theorem}
 
 \begin{sol}
-This is induction on $\lvert S \rvert$. For the inductive step, first check that $v_k \neq 0$ and then compute $\langle v_k, v_i \rangle$ for $i < k$. Then $dim(span(S_k')) = dim(span(S_k))$ because $S_k'$ is linearly independent. 
+Let $S_k = \{w_1, \dots, w_k\}$. We will use induction on $k$. 
+
+\begin{itemize}
+    \item Base Case: For $k = 1$, clearly $span(S_1') = span(S_1)$.
+    
+    \item Induction Step: Suppose $S_{k-1}' = \{v_1, \dots, v_{k-1}\}$ has been constructed so that $S_{k-1}'$ is orthogonal and $span(S_{k-1}') = span(S_k)$. Let $v_k = w_k - \sum_{i = 1}^{k-1} \frac{\langle w_k, v_i \rangle}{\lVert v_i \rVert^2}v_i$. Then we have the following properties: \begin{itemize}
+        \item We know $v_k \neq 0$ because otherwise, $w_k - \sum_{i = 1}^{k-1} \frac{\langle w_k, v_i \rangle}{\lVert v_i \rVert^2}v_i = 0$ and $v_k \in span(S_{k-1}') = span(S_{k-1})$, but $S$ is linearly independent.
+        
+        \item For $j \leq k-1$, \begin{align*}
+            \langle v_k, v_j \rangle &= \langle w_k, v_j \rangle - \sum_{i =1}^{k-1} \frac{\langle w_k, v_i \rangle}{\lVert v_i \rVert^2}\langle v_i, v_j \rangle \tag{Note, $\langle v_i, v_j \rangle = 0$ if $i \neq j$} \\
+            &= \langle w_k, v_j \rangle - \frac{\langle w_k, v_j \rangle}{\lVert v_j \rvert^2}\langle v_j, v_j \rangle \tag{By inductive hypothesis} \\
+            &= 0.
+        \end{align*}
+    \end{itemize}
+    
+    Thus, $S_k = \{v_1, \dots, v_k \}$ is orthogonal. From $v_k = w_k - \sum_{i = 1}^{k-1} \frac{\langle w_k, v_i \rangle}{\lVert v_i \rVert^2}v_i$, we have $v_k \in span(w_k, v_1, \dots, v_{k-1}) \in span(w_1, \dots, w_k) = span(S_k)$. Thus, $span(S_k') \subseteq span(S_k)$. Also, $w_k \in span(v_1, \dots, v_k)$ and so $span(S_k) \subseteq span(S_k')$.
+\end{itemize}
+\end{sol}
+
+\vspace{1em}
+
+\noindent\textbf{Example:} $\left(\text{Legendre Polynomials of the form } \frac{v_k(x)}{v_k(1)}\right)$
+
+Let $P_2(\mathbb{R})$ with the standard basis $\beta = \{1, x, x^2\}$. Consider $\langle f, g \rangle = \int_{-1}^1 f(x)g(x)dx$. Replace $\beta$ with an orthogonal basis.
+
+\begin{sol}
+Let $\beta = \{w_1, w_2, w_3\}$. Then \begin{itemize}
+    \item $v_1 = w_1 = 1$, $\lVert v_1 \rVert^2 = \langle v_1, v_1 \rangle = 2$
+    
+    \item $v_2 = w_2 - \frac{\langle w_2, v_1 \rangle}{\lVert v_1 \rVert^2}v_1 = x$
+    
+    \item $v_3 = w_3 - \frac{\langle w_3, v_2 \rangle}{\lVert v_2 \rVert^2}v_2 - \frac{\langle w_3, v_1 \rangle}{\lVert v_1 \rVert^2}v_1 = x^2 - \frac{1}{3}$.
+\end{itemize}
+Thus, $\alpha = \{2, x, x^2 - \frac{1}{3}\}$ is an orthonormal basis for $P_2(\mathbb{R})$.
 \end{sol}
 
 \begin{theorem}{6.5}
@@ -3120,6 +3153,18 @@ T
 \end{corollary}
 
 \noindent Fourier coefficient of $x$ relative to $\beta$ is $\langle x, y \rangle$ where $y \in \beta$.
+
+\vspace{1em}
+
+\noindent\textbf{Example:} Let $S = \{e^{int} : n \in \mathbb{Z}\}$ in $H$ with $\langle f, g \rangle = \frac{1}{2\pi} \int_0^{2\pi} f(t) \overline{g(t)}dt$. Find the Fourier coefficients of $f(t) = 1$. 
+
+\begin{sol}
+\begin{itemize}
+    \item If $n = 0$, $\langle f, 1 \rangle = \pi$
+    
+    \item If $n \neq 0$, $\langle f, f_n \rangle = \frac{1}{2\pi} \int_0^{2\pi}te^{-int}dt = -\frac{1}{in}$
+\end{itemize}
+\end{sol}
 
 \begin{definition}{6}
 Let $S$ be a non-empty subset of $V$. Define $S^\perp = \{x \in V : \langle x, y \rangle = 0 \text{ for every } y \in S\}$.
@@ -3139,9 +3184,28 @@ Let $W$ be a finite-dimensional subspace of an inner product space $V$ and let $
     \item For the uniqueness $u - u' \in W$ and $z' - z \in W^\perp$.
 \end{itemize}
 
+\begin{sol}
+Let $u = \sum \langle y, v_i \rangle v_i$ and $z = y - u$. Then \begin{align*}
+    \langle z, v_j \rangle &= \langle y - u, v_j \rangle \\
+    &= \langle y, v_j \rangle - \sum_{i = 1}^k \langle y, v_i \rangle \langle v_i, v_j \rangle \\
+    &= \langle y, v_j \rangle.
+\end{align*} Then, for uniqueness, $u' + z' = y = u + z$ and $u' + u = z - z' \in W \cap W^\perp = \{0\}$. So, $u' = u$ and $z' = z$.
+\end{sol}
+
 \begin{corollary}{9}
 For any $x \in W$, $\lVert y - x \rVert \geq \lVert y - u \rVert$ and if $\lVert y - x \rVert = \lVert y - u \rVert$ then $x = u$.
 \end{corollary}
+
+\begin{sol}
+\begin{align*}
+    \lVert y-x \rVert^2 &= \lVert u + z - x \rVert^2 \\
+    &= \lVert u - x + z \rVert^2 \\ 
+    &= \langle u - z + z, u - x + z \rangle \\
+    &= \lVert u - x \rVert^2 + \lVert z \rVert^2 \\
+    &\geq \lVert z \rVert^2 \\
+    &= \lVert y - u \rVert^2
+\end{align*}
+\end{sol}
 
 \begin{theorem}{6.7}
 Suppose $S = \{v_1, \dots, v_k\}$ is an orthonormal set in an $n$-dimensional inner product space $V$. Then 
@@ -3158,10 +3222,21 @@ Suppose $S = \{v_1, \dots, v_k\}$ is an orthonormal set in an $n$-dimensional in
 \subsection{The adjoint of a linear operator}
 
 \begin{theorem}{6.8}
-Let $V$ be a finite-dimensional inner product space over $F$, and let $g : V \to \mathbb{F}$ be a linear transformation. Then there exists a unique vector $y \in V$ such that $g(x) = \langle x, y \rangle$ for every $x \in V$.
+Let $V$ be a finite-dimensional inner product space over $\mathbb{F}$, and let $g : V \to \mathbb{F}$ be a linear transformation. Then there exists a unique vector $y \in V$ such that $g(x) = \langle x, y \rangle$ for every $x \in V$.
 \end{theorem}
 
 \textit{Proof.} (Outline) Take an orthonormal basis $\beta = \{v_1, \dots, v_n\}$ and define $y = \sum \overline{g(v_i)}v_i$.
+
+\vspace{1em}
+
+\begin{sol}
+Let $\{v_1, \dots, v_n\}$ be an orthonormal basis for $V$. Let $y = \sum_{i = 1}^n\overline{g(v_i)}v_i \in V$. Let $h : V \to \mathbb{F}$ be defined by $h(x) = \langle x, y \rangle$. Then $h$ is a linear transformation. In addition, \begin{align*}
+    h(v_j) &= \langle v_j, y \rangle \\
+    &= \left\langle v_j, \sum_{i = 1}^n\overline{g(v_i)}v_i \right\rangle \\
+    &= \sum_{i=1}^ng(v_i) \langle v_j, v_i \rangle \\
+    &= g(v_j).
+\end{align*} Thus, $h(v_j) = g(v_j)$ for all $j = 1, \dots, n$. Thus, $h = g$. Suppose $\langle x, y \rangle = \langle x, y' \rangle$ for all $x \in V$. Then $y = y'$.
+\end{sol}
 
 \begin{theorem}{6.9}
 Let $V$ be a finite-dimensional inner product space and let $T : V \to V$ be linear. Then there exists a unique function $T^* : V \to V$ such that $\langle T(x), y \rangle = \langle x, T^*(y) \rangle$ for all $x,y$. Furthermore, $T^*$ is linear.
@@ -3176,6 +3251,15 @@ Let $V$ be a finite-dimensional inner product space and let $T : V \to V$ be lin
     
     \item Note that $T^*$ is a function and check that it is linear.
 \end{itemize}
+
+\begin{sol}
+Fix $y \in V$. Consider $g(x) = \langle T(x), y \rangle$. Then $g : V \to \mathbb{F}$ is linear. By Theorem 6.8, there exists a unique $y'$ such that $g(x) = \langle x, y' \rangle$. Let $T^*(y) = y'$. Then $T^* : V \to V$ and $\langle T(x), y \rangle = g(x) = \langle x, T^*(y) \rangle$. In addition, $T^*$ is linear. Let $y_1, y_2 \in V$ and $c \in \mathbb{F}$. Then \begin{align*}
+    \langle x, T^*(cy_1 + y_2) \rangle &= \langle T(x), cy_1 + y_2 \rangle \\
+    &= \overline{c} \langle T(x), y_1 \rangle + \langle T(x), y_2 \rangle \\
+    &= \langle x, cT^*(y_1) \rangle + \langle x, T^*(y_2) \rangle \\ 
+    &= \langle x, cT^*(y_1) + T^*(y_2) \rangle.
+\end{align*} Thus, $T^*(cy_1 + y_2) = cT^*(y_1) + T^*(y_2)$. Suppose $\langle T(x), y \rangle = \langle x, U(y) \rangle$ for all $x,y \in V$. Then, $\langle T(x), y \rangle = \langle x, T^*(y) \rangle$, which implies $T^* = U$.
+\end{sol}
 
 \begin{theorem}{6.10}
 Let $V$ be a finite-dimensional inner product space and let $\beta$ be an orthonormal ordered basis for $V$. If $T$ is a linear operator on $V$, then $\begin{bmatrix}
