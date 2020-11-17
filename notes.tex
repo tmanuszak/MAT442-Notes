@@ -3269,6 +3269,19 @@ T
 \end{bmatrix}_\beta^*$.
 \end{theorem}
 
+\begin{sol}
+Let $A = \begin{bmatrix}
+T^*
+\end{bmatrix}_\beta$ and $B = \begin{bmatrix}
+T
+\end{bmatrix}_\beta$ where $\beta = \{v_1, \dots, v_n\}$. Note, $B_{ij} = \langle T(v_j), v_i \rangle$. Then, \begin{align*}
+    A_{ij} &= \langle T^*(v_j), v_i \rangle \\
+    &= \overline{ \langle v_i, T^*(v_j) \rangle} \\
+    &= \overline{\langle T(v_i), v_j \rangle} \\
+    &= \overline{B_{ji}}.
+\end{align*}
+\end{sol}
+
 \begin{theorem}{6.11}
 Let $V$ be an inner-product space, and let $T,U$ be linear operators on $V$. Then
 
@@ -3278,6 +3291,15 @@ Let $V$ be an inner-product space, and let $T,U$ be linear operators on $V$. The
     \item[(b)] $(cT)^* = \overline{c}T^*$
     
     \item[(c)] $(TU)^* = U^*T^*$
+    
+    \begin{sol}
+    \begin{align*}
+        \langle x, (TU)^*y \rangle &= \langle (TU)x, y \rangle \\
+        &= \langle T(Ux), y \rangle \\
+        &= \langle Ux, T^*y \rangle \\
+        &= \langle x, U^*T^*y \rangle
+    \end{align*}
+    \end{sol}
     
     \item[(d)] $T^{**} = T$
     
@@ -3311,11 +3333,62 @@ T
     \end{bmatrix}_\beta$ is upper-triangular.
 \end{itemize}
 
+\begin{sol}
+Let $n = dim(V)$.
+\begin{itemize}
+    \item Base step: Let n = 1. Then clearly the statement holds.
+    \item Induction Step: Let the statement be true for some $n - 1 \geq 1$. Then we can assume $T^*$ has an eigenvector $z$ such that $\lVert z \rVert = 1$ and $T^*(z) = \lambda z$ by Lemma 15. Let $W = span(z)$. We claim $W^\perp$ is $T$-invariant. Let $y \in W^\perp$. Then $\langle y, z \rangle = 0$. Now, for $w \in W$, \begin{align*}
+        \langle T(y), w \rangle &= \langle y, T^*(w) \rangle \\
+        &= \langle y, cT^*(z) \rangle \tag{For some $c \in \mathbb{F}$} \\
+        &= \langle y, c \lambda z \rangle \\
+        &= \overline{c} \overline{\lambda} \langle y, z \rangle \\
+        &= 0.
+    \end{align*} Thus, $T(y) \in W^\perp$. In addition, $dim(W^\perp) = n - dim(W) = n - 1$ and $\restr{f}{T_{W^\perp}}$ divides $\restr{f}{T}$ and so it splits. By inductive hypothesis, there exists an orthonormal basis $\gamma$ such that $\begin{bmatrix}
+    T_{W^\perp}
+    \end{bmatrix}_\gamma$ is upper-triangular. Let $\beta = \gamma \cup \{z\}$. Then $\begin{bmatrix}
+    T
+    \end{bmatrix}_\beta$ is upper-triangular because $T(w) \in W^\perp \in span(\gamma)$.
+\end{itemize}
+\end{sol}
+
 \noindent\textbf{Note:} If $V$ has an orthonormal basis of eigenvectors of $T$, then $TT^* = T^*T$.
 
 \begin{definition}{7}
 $T : V \to V$ is \textit{normal} if $TT^* = T^*T$. $A \in M_{n \times n}(\mathbb{F})$ is \textit{normal} if $AA^* = A^*A$.
 \end{definition}
+
+\noindent\textbf{Note:} If there exists an orthonormal basis $\beta$ consisting of eigenvectors of $T$, then $T$ is normal.
+
+\begin{sol}
+Suppose there exists a basis $\beta$ consisting of eigenvectors of $T$. Then $\begin{bmatrix}
+T
+\end{bmatrix}_\beta$ is diagonal and $\begin{bmatrix}
+T^*
+\end{bmatrix}_\beta = \left( \begin{bmatrix}
+T
+\end{bmatrix}_\beta \right)^*$ is diagonal. Therefore, $$\begin{bmatrix}
+TT^*
+\end{bmatrix}_\beta = \begin{bmatrix}
+T
+\end{bmatrix}_\beta \begin{bmatrix}
+T^*
+\end{bmatrix}_\beta = \begin{bmatrix}
+T^*
+\end{bmatrix}_\beta \begin{bmatrix}
+T
+\end{bmatrix}_\beta = \begin{bmatrix}
+T^*T
+\end{bmatrix}_\beta.$$ Thus, $TT^* = T^*T$.
+\end{sol}
+
+\vspace{1em}
+
+\noindent\textbf{Examples:}
+\begin{itemize}
+    \item If $A \in M_{n \times n}(\mathbb{R})$ is symmetric, then $A$ is normal.
+    
+    \item If $A \in M_{n \times n}(\mathbb{R})$ is asymmetric, $A^T = -A$, and so $AA^* = -A^2 = A^*A$.
+\end{itemize}
 
 \begin{theorem}{6.15}
 Let $T$ be a normal operator on $V$. Then 
@@ -3323,11 +3396,49 @@ Let $T$ be a normal operator on $V$. Then
 \begin{itemize}
     \item[(a)] $\lVert T(x) \rVert = \lVert T^*(x) \rVert$
     
+    \begin{sol}
+    \begin{align*}
+        \lVert Tx \rVert^2 &= \langle T(x), T(x) \rangle \\
+        &= \langle T^*Tx, x \rangle \\
+        &= \langle TT^*x, x \rangle \\
+        &= \langle T^*x, T^*x \rangle \\
+        &= \lVert T^*x \rVert^2
+    \end{align*}
+    \end{sol}
+    
     \item[(b)] $T - cI$ is normal for every $c \in \mathbb{F}$.
+    
+    \begin{sol}
+    \begin{align*}
+        (T - cI)(T - cI)^* &= (T - cI)(T^* - \overline{c}I) \\
+        &= TT^* - cT^* - \overline{c}T - c \overline{c} I \\
+        &= T^*T - cT^* - \overline{c}T - c \overline{c} I \\
+        &= (T - cI)^*(T - cI)
+    \end{align*}
+    \end{sol}
     
     \item[(c)] If $x$ is an eigenvector of $T$, then $x$ is an eigenvector of $T^*$.
     
+    \begin{sol}
+    We can show \begin{align*}
+        0 &= \langle (T - \lambda I)x, (T - \lambda I)x \rangle \\
+        &= \lVert (T - \lambda I)x \rVert^2 \\
+        &= \lVert (T - \lambda I)^*x \rVert^2 \tag{From (a) and (b)} \\
+        &= \langle (T^* - \overline{\lambda} I)x, (T^* - \overline{\lambda} I)x \rangle.
+    \end{align*} Thus, $T^*x = \overline{\lambda}x$.
+    \end{sol}
+    
     \item[(d)] If $\lambda_1, \lambda_2$ are distinct eigenvalues of $T$ with eigenvectors $x_1, x_2$, then $\langle x_1, x_2 \rangle = 0$.
+    
+    \begin{sol}
+    We can show \begin{align*}
+        \lambda_1 \langle x_1, x_2 \rangle &= \langle \lambda_1 x_1, x_2 \rangle \\
+        &= \langle T(x_1), x_2 \rangle \\
+        &= \langle x_1, T^*(x_2) \rangle \\
+        &= \langle x_1, \overline{\lambda_2} x_2 \rangle \tag{From (c)} \\
+        &= \lambda_2 \langle x_1, x_2 \rangle,
+    \end{align*} which implies $(\lambda_1 - \lambda_2) \langle x_1, x_2 \rangle = 0$. Since $\lambda_1 \neq \lambda_2$, then $\langle x_1, x_2 \rangle = 0$.
+    \end{sol}
 \end{itemize}
 \end{theorem}
 
