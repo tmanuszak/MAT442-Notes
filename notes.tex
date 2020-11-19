@@ -3449,14 +3449,57 @@ Let $T$ be a linear operator on a finite-dimensional complex inner-product space
 \textit{Proof.} (Outline) Suppose $T$ is normal.
 
 \begin{itemize}
-    \item $T$ splits over $C$ and so apply Schur's lemma to get an orthonormal basis $\beta = \{v_1, \dots, v_n\}$.
+    \item $T$ splits over $\mathbb{C}$ and so apply Schur's lemma to get an orthonormal basis $\beta = \{v_1, \dots, v_n\}$.
     
     \item $A \coloneqq \begin{bmatrix} T \end{bmatrix}_\beta$ is upper-triangular and so $T(v_1) = A_{11}v_1$.
     
     \item Show that $e_k$ is an eigenvector by induction on $k$ using the fact that $A_{jk} = \langle T(v_k), v_j \rangle$.
 \end{itemize}
 
-The converse is easy.
+\begin{sol}
+Let $T$ be a linear operator on a finite-dimensional complex inner-product space $V$.
+
+\begin{itemize}
+    \item[$\Longrightarrow$] Suppose $T$ is normal. Since we are over $\mathbb{C}$, the characteristic polynomial of $T$ splits. By Schur's Theorem, there exists an orthonormal basis $\beta = \{v_1, \dots, v_n \}$ such that $A = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta$ is upper-triangular. We will show that $v_1, \dots, v_n$ are in addition eigenvectors of $T$. We will use induction on $n$. 
+    
+    \begin{itemize}
+        \item Base Case: Let $n = 1$. We have $T(v_1) = A_{11}v_1$ and so $v_1$ is an eigenvector. 
+        
+        \item Induction Step: Suppose $v_1, \dots, v_{k-1}$ are eigenvectors of $T$ with eigenvalues \newline $\lambda_1, \dots, \lambda_{k-1}$. Then $T(v_k) = \sum_{i = 1}^kA_{ik}v_i$ and in addition, $A_{ik} = \langle T(v_k), v_i \rangle = \langle v_k, T^*(v_i) \rangle$. For $i < k$, we have \begin{align*}
+            A_{ik} &= \langle v_k, \overline{\lambda_i}v_i \rangle \\
+            &= \lambda_i \langle v_k, v_i \rangle \\
+            &= 0.
+        \end{align*} Thus, $T(v_k) = A_{kk}v_k$. So, $v_k$ is an eigenvector of $T$.
+    \end{itemize}
+    
+    \item[$\Longleftarrow$] Suppose $\beta$ is an orthonormal basis consisting of eigenvectors of $T$. Then $\begin{bmatrix}
+    T
+    \end{bmatrix}_\beta$ is diagonal, and so $\begin{bmatrix}
+    T^*
+    \end{bmatrix}_\beta = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta^*$ is diagonal. Thus, \begin{align*}
+        \begin{bmatrix}
+        TT^*
+        \end{bmatrix}_\beta &= \begin{bmatrix}
+        T
+        \end{bmatrix}_\beta \begin{bmatrix}
+        T^*
+        \end{bmatrix}_\beta \\
+        &= \begin{bmatrix}
+        T^*
+        \end{bmatrix}_\beta \begin{bmatrix}
+        T
+        \end{bmatrix}_\beta \\
+        &= \begin{bmatrix}
+        T^*T
+        \end{bmatrix}_\beta.
+    \end{align*}
+    Thus, $TT^* = T^*T$.
+\end{itemize}
+\end{sol}
 
 \begin{definition}{8}
 $T : V \to V$ is \textit{self-adjoint} (Hermitian) if $T = T^*$. $A \in M_{n \times n}(\mathbb{F})$ is \textit{Hermitian} if $A = A^*$. 
@@ -3468,7 +3511,19 @@ Let $T$ be a Hermitian operator on a finite-dimensional inner product space $V$.
 \begin{itemize}
     \item[(a)] All eigenvalues of $T$ are real.
     
+    \begin{sol}
+    Let $\lambda$ be an eigenvalue correspond with the eigenvector $v$. Then $\lambda v = T(v) = T^*(v) = \overline{\lambda} v$ and so $\lambda = \overline{\lambda}$. Thus, $\lambda \in \mathbb{R}$.
+    \end{sol}
+    
     \item[(b)] If $V$ is a real inner product space, then the characteristic polynomial splits.
+    
+    \begin{sol}
+    Suppose $T$ is self-adjoint. Let $\beta$ be an orthonormal basis for $T$. Then $A = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta$ is self-adjoint. Let $L_A : \mathbb{C}^n \to \mathbb{C}^n$ where $n = dim(V)$ defined by $L_A(x) = Ax$. Then $\begin{bmatrix}
+    L_A
+    \end{bmatrix}_\gamma = A$ where $\gamma$ is the standard basis. Thus, $L_A$ is self-adjoint. Thus, $f_{L_A}$ splits over $\mathbb{C}$. Then $f_{L_A}(t) = (-1)^n(t - \lambda_1) \dots (t - \lambda_n)$ where $\lambda_i$ is an eigenvalue of $L_A$. By (a), $\lambda_i \in \mathbb{R}$. Thus, $F_{L_A}$ splits over $\mathbb{R}$. Therefore, $f_T = f_A = f_{L_A}$ splits over $\mathbb{R}$.
+    \end{sol}
 \end{itemize}
 \end{lemma}
 
@@ -3476,8 +3531,33 @@ Let $T$ be a Hermitian operator on a finite-dimensional inner product space $V$.
 Let $T$ be a linear operator on a finite-dimensional real inner-product space $V$. Then $T$ is Hermitian if and only if there exists an orthonormal basis for $V$ consisting of eigenvectors of $T$.
 \end{theorem}
 
-\begin{sol}
+\textit{Proof.} (Outline)
+
 The characteristic polynomial splits and so we may apply Schur's lemma. $A \coloneqq \begin{bmatrix} T \end{bmatrix}_\beta$ is upper-triangular and so $A^*$. Thus it must be a diagonal matrix.
+
+\vspace{1em}
+
+\begin{sol}
+Let $T$ be a linear operator on a finite-dimensional real inner-product space $V$.
+\begin{itemize}
+    \item[$\Longrightarrow$] Suppose $T$ is self-adjoint. By Lemma 19, $f_T$ splits. By Schur's Theorem, there exists an orthonormal basis $\beta$ such that $A = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta$ is an upper-triangular. Then, $A = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta = \begin{bmatrix}
+    T^*
+    \end{bmatrix}_\beta$. Thus, $A$ and $A^*$ are upper-triangular. Thus, $A$ is diagonal and so $\beta$ contains eigenvectors of $T$.
+    
+    \item[$\Longleftarrow$] Suppose there is an orthonormal basis $\beta$ consisting of eigenvectors of $T$. Then $\begin{bmatrix}
+    T
+    \end{bmatrix}_\beta$ is diagonal with entries from $\mathbb{R}$. So, $\begin{bmatrix}
+    T^*
+    \end{bmatrix}_\beta = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta^* = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta$. Thus, $T^* = T$. Therefore, $T$ is self-adjoint.
+\end{itemize}
 \end{sol}
 
 \subsection{Unitary and orthogonal operators and their matrices}
