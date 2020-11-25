@@ -3542,11 +3542,13 @@ Let $T$ be a linear operator on a finite-dimensional real inner-product space $V
 \begin{itemize}
     \item[$\Longrightarrow$] Suppose $T$ is self-adjoint. By Lemma 19, $f_T$ splits. By Schur's Theorem, there exists an orthonormal basis $\beta$ such that $A = \begin{bmatrix}
     T
-    \end{bmatrix}_\beta$ is an upper-triangular. Then, $A = \begin{bmatrix}
+    \end{bmatrix}_\beta$ is an upper-triangular. Then, $$A = \begin{bmatrix}
     T
     \end{bmatrix}_\beta = \begin{bmatrix}
     T^*
-    \end{bmatrix}_\beta$. Thus, $A$ and $A^*$ are upper-triangular. Thus, $A$ is diagonal and so $\beta$ contains eigenvectors of $T$.
+    \end{bmatrix}_\beta = \begin{bmatrix}
+    T
+    \end{bmatrix}_\beta^* = A^*.$$ Thus, $A$ and $A^*$ are upper-triangular. Thus, $A$ is diagonal and so $\beta$ consists of eigenvectors of $T$.
     
     \item[$\Longleftarrow$] Suppose there is an orthonormal basis $\beta$ consisting of eigenvectors of $T$. Then $\begin{bmatrix}
     T
